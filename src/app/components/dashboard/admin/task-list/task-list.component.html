@@ -1,0 +1,7 @@
+<small *ngIf="loading">loading...</small>
+
+
+<div class="h-screen">
+    <app-task-item *ngFor="let task of listOfTasks" [task]="task"></app-task-item>
+
+</div>

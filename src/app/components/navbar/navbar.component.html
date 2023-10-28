@@ -1,0 +1,23 @@
+<nav
+  class="container  bg-black flex flex-row justify-between items-center py-5"
+>
+  <a routerLink="/" class="text-3xl">EMS</a>
+
+  <div>
+    <div
+      class="flex flex-row justify-between gap-5 md:gap-20"
+      *ngIf="!authenticatedUser"
+    >
+      <a routerLink="/login" routerLinkActive="active">Login</a>
+      <a routerLink="/register" routerLinkActive="active">Register</a>
+    </div>
+    <div
+      class="flex flex-row justify-between gap-5 md:gap-20"
+      *ngIf="authenticatedUser"
+    >
+      <a routerLink="/dashboard" routerLinkActive="active" class="">Dashboard</a>
+      <a routerLink="/admin" routerLinkActive="active" class="">Admin</a>
+      <p (click)="signOut()" class="cursor-pointer">Logout</p>
+    </div>
+  </div>
+</nav>

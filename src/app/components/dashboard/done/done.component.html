@@ -1,0 +1,15 @@
+<ng-container *ngIf="task.status === 'done'">
+
+    <div  class="flex flex-row justify-between p-4 mt-5 border border-white">
+        <div class="">
+            <p>{{task.task}}</p>
+            <small>{{task.created_at | date: 'medium'}}</small>
+        </div>
+     <div>
+        <fa-icon class="cursor-pointer" (click)="reverseToInProgress(task)" [icon]="faBack"></fa-icon>
+     </div>
+
+    </div>
+
+
+</ng-container>

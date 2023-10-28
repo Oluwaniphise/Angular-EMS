@@ -1,0 +1,9 @@
+<ng-container *ngIf="task.status === 'pending'">
+
+    <div (dblclick)="inProgress(task)" class="p-4 cursor-pointer mt-5 border border-white">
+        <p>{{task.task}}</p>
+        <small>{{task.created_at | date: 'medium'}}</small>
+
+    </div>
+
+</ng-container>
