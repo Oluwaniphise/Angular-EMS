@@ -1,8 +1,25 @@
-<h1 mat-dialog-title>Are you sure?</h1>
+<h1 mat-dialog-title>Confirm this action</h1>
 <mat-dialog-content>
-  <p>You data will not be saved, consider to save your form before leaving this page</p>
+  <p>
+    You data will not be saved, consider to save your form before leaving this
+    page
+  </p>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Forward</button>
-</mat-dialog-actions>
+<!-- <mat-dialog-actions align="end"> -->
+<div class="flex justify-end gap-5">
+  <button
+    class=" bg-red-500 text-white p-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300"
+    mat-dialog-close
+  >
+    Cancel
+  </button>
+  <button
+    class=" bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+  >
+    Forward
+  </button>
+</div>
+
+<!-- </mat-dialog-actions> -->

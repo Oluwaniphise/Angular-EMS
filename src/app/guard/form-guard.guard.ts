@@ -1,17 +1,28 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { SaveData } from '../save-data-interface';
+import { ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FormGuardGuard implements CanDeactivate<unknown> {
+export class FormGuardGuard implements CanDeactivate<SaveData> {
+  constructor(private dialog: MatDialog){}
   canDeactivate(
-    component: unknown,
+    component: SaveData,
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+
+      if(component.isDataSaved()){
+        const dialogRef = this.dialog.open(ConfirmDialogComponent)
+        return dialogRef.afterClosed()
+
+
+      }
+    return of(true);
   }
   
 }

@@ -5,19 +5,17 @@ import { EditItemComponent } from '../edit-item/edit-item.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteTaskComponent } from '../delete-task/delete-task.component';
 
-
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.css']
+  styleUrls: ['./task-list.component.css'],
 })
 export class TaskListComponent implements OnInit {
-  constructor(private tasks: TasksService, private dialog: MatDialog) { }
+  constructor(private tasks: TasksService, private dialog: MatDialog) {}
 
-  loading = false
+  loading = false;
   listOfTasks!: Task[];
 
-  
   async getTaskList() {
     this.loading = true;
     await this.tasks.getTasks().then((tasks) => {
@@ -26,39 +24,33 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  editTask(task: Task){
-      const dialogRef = this.dialog.open(EditItemComponent, {
-        width: '500px',
-        data: task,
-      });
-  
-      dialogRef.afterClosed().subscribe((editedTask) => {
-          // Update the task with the edited data
-          if(editedTask){
-            this.getTaskList()
+  editTask(task: Task) {
+    const dialogRef = this.dialog.open(EditItemComponent, {
+      width: '500px',
+      data: task,
+    });
 
-          }
-        
-      });
+    dialogRef.afterClosed().subscribe((editedTask) => {
+      if (editedTask) {
+        this.getTaskList();
+      }
+    });
   }
 
-  deleteTask(task: Task){
+  deleteTask(task: Task) {
     const dialogRef = this.dialog.open(DeleteTaskComponent, {
       width: '500px',
       data: task,
     });
 
     dialogRef.afterClosed().subscribe((editedTask) => {
-      if(editedTask){
-        this.getTaskList()
-
+      if (editedTask) {
+        this.getTaskList();
       }
     });
   }
 
   ngOnInit() {
-    this.getTaskList()
-
+    this.getTaskList();
   }
-
 }

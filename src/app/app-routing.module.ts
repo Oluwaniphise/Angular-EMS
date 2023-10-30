@@ -13,6 +13,7 @@ import { TaskListComponent } from './components/dashboard/admin/task-list/task-l
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { EditItemComponent } from './components/dashboard/admin/edit-item/edit-item.component';
 import { PermissionGuard } from './guard/permission.guard';
+import { FormGuardGuard } from './guard/form-guard.guard';
 
 export const routes: Routes = [
 
@@ -30,6 +31,7 @@ export const routes: Routes = [
       {
         path: 'add-task',
         component: AddTaskComponent,
+        canDeactivate:[FormGuardGuard]
       },
       {
         path: 'edit-task/:id',

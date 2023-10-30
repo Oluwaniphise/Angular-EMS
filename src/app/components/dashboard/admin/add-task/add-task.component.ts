@@ -52,4 +52,9 @@ export class AddTaskComponent implements OnInit {
    
   }
 
+
+  isDataSaved(): boolean {
+    return this.addTaskForm.dirty
+  }
+
 }

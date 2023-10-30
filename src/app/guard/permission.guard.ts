@@ -17,7 +17,7 @@ export class PermissionGuard implements CanActivateChild {
           return true
         } 
         else{
-          alert('your not an admin')
+          alert("you're not an admin")
       return this.router.parseUrl('/dashboard'); 
 
         }
