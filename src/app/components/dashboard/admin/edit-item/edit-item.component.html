@@ -1,0 +1,123 @@
+<h2 mat-dialog-title>Edit: Task {{task.id}} </h2>
+<mat-dialog-content>
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <div class="mb-4">
+      <label for="task" class="block text-black font-medium mb-2"
+        >Task</label
+      >
+      <textarea
+        type="text"
+        id="task"
+        formControlName="task"
+        class="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+        placeholder="add a testimonial to the website"
+      ></textarea>
+      <div
+        class="text-red-500"
+        *ngIf="
+          editForm.get('task')?.invalid &&
+          (editForm.get('task')?.dirty || editForm.get('task')?.touched)
+        "
+      >
+        Please provide a task
+      </div>
+      
+    </div>
+    <div class="mb-6">
+      <label for="created_at" class="block text-black font-medium mb-2"
+        >Date: {{task.created_at | date:'medium' }}</label
+      >
+      <input
+        type="datetime-local"
+        id="created_at"
+        formControlName="created_at"
+
+        class="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+      />
+      <div
+        class="text-red-500"
+        *ngIf="
+          editForm.get('created_at')?.invalid &&
+          (editForm.get('created_at')?.dirty ||
+            editForm.get('created_at')?.touched)
+        "
+      >
+        Select date and time
+      </div>
+    </div>
+
+    <div class="mb-6">
+      <label for="created_at" class="block text-black font-medium mb-2"
+        >Status</label
+      >
+      <select
+        name="status"
+        class="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+        formControlName="status"
+        id="status"
+      >
+      <option selected disabled value="Select a status">Select a status</option>
+
+        <option  value="pending">Pending</option>
+        <option value="in_progress">In Progress</option>
+        <option value="done">Done</option>
+      </select>
+      <div
+        class="text-red-500"
+        *ngIf="
+          editForm.get('status')?.invalid &&
+          (editForm.get('status')?.dirty ||
+            editForm.get('status')?.touched)
+        "
+      >
+        Select status
+      </div>
+    </div>
+
+
+    <div class="mb-6">
+      <label for="employee" class="block text-black font-medium mb-2"
+        >Employee:  </label 
+      >
+      <select
+        name="employee"
+        class="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+        formControlName="employee"
+        id="employee"
+      >
+      <option  disabled selected value="Select an employee">Select an employee</option>
+        <option *ngFor="let employee of employees"  value="{{employee.username}}">
+          {{employee.username}}
+        </option>
+      </select>
+      <div
+        class="text-red-500"
+        *ngIf="
+          editForm.get('employee')?.invalid &&
+          (editForm.get('employee')?.dirty ||
+            editForm.get('employee')?.touched)
+        "
+      >
+        Select employee
+      </div>
+    </div>
+    <button
+      type="submit"
+      [disabled]="loading || editForm.invalid"
+
+      class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+    >
+    {{loading ? 'Editing...': 'Edit'}}
+
+    
+    </button>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  
+  <button
+  class="w-full bg-red-500 text-white p-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300" mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
+
+
+<!-- [mat-dialog-close]="true" -->

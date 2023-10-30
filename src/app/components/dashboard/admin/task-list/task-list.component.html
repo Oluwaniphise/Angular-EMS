@@ -1,7 +1,7 @@
 <small *ngIf="loading">loading...</small>
 
 
-<div class="h-screen">
-    <app-task-item *ngFor="let task of listOfTasks" [task]="task"></app-task-item>
+<div class="pb-36 grid grid-cols-1 gap-10 md:grid-cols-3">
+    <app-task-item (deleteTaskOutput)="deleteTask(task)" (editTaskOutput)="editTask(task)" *ngFor="let task of listOfTasks" [task]="task"></app-task-item>
 
 </div>

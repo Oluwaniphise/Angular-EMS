@@ -6,7 +6,8 @@ import { map, tap, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { SupabaseService } from './supabase.service';
 import { Employee } from '../employee.interface';
-import { TaskItemComponent } from '../components/dashboard/admin/task-list/task-item/task-item.component';
+import { Profile } from '../profile.interface';
+import jwtDecode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -80,11 +81,44 @@ export class TasksService {
     return data as unknown as Task;
   }
 
+  async updateTask(task: Task): Promise<Task> {
+    let { data, error } = await this.supabase.supabaseClient
+      .from('todos')
+      .update({
+        task: task.task,
+        status: task.status,
+        created_at: task.created_at,
+        employee: task.employee,
+      })
+      .eq('id', task.id);
+    if (error) {
+      return error as unknown as Task;
+    }
+
+    return data as unknown as Task;
+  }
+  async deleteTask(task: Task): Promise<Task> {
+    let { data, error } = await this.supabase.supabaseClient
+      .from('todos')
+      .delete()
+      .eq('id', task.id);
+    if (error) {
+      return error as unknown as Task;
+    }
+
+    return data as unknown as Task;
+  }
+
   async addTask(task: Task): Promise<Task> {
     const { data, error } = await this.supabase.supabaseClient
       .from('todos')
       .insert([
-        { task: task.task, created_at: task.created_at, status: task.status, employee: task.employee },
+        {
+          task: task.task,
+          created_at: task.created_at,
+          status: task.status,
+          employee: task.employee,
+        },
       ]);
 
     if (error) {
@@ -97,12 +131,33 @@ export class TasksService {
     const { data, error } = await this.supabase.supabaseClient
 
       .from('profiles')
-      .select('*');
+      .select('*')
+      .eq('role', 'user');
 
     if (error) {
       return error as unknown as Employee[];
     }
 
     return data as unknown as Employee[];
+  }
+
+  async getUserProfile(): Promise<Profile> {
+    const tokenString = localStorage.getItem('access_token');
+    let user: any;
+    if (tokenString !== null) {
+      user = jwtDecode(tokenString);
+    }
+
+    const { data, error } = await this.supabase.supabaseClient
+
+      .from('profiles')
+      .select('*')
+      .eq('id', user.sub);
+
+    if (error) {
+      return error as unknown as Profile;
+    }
+
+    return data as unknown as Profile;
   }
 }

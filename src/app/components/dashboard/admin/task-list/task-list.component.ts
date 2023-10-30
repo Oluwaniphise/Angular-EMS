@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TasksService } from 'src/app/services/tasks.service';
 import { Task } from 'src/app/task.interface';
+import { EditItemComponent } from '../edit-item/edit-item.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteTaskComponent } from '../delete-task/delete-task.component';
+
 
 @Component({
   selector: 'app-task-list',
@@ -8,7 +12,7 @@ import { Task } from 'src/app/task.interface';
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent implements OnInit {
-  constructor(private tasks: TasksService) { }
+  constructor(private tasks: TasksService, private dialog: MatDialog) { }
 
   loading = false
   listOfTasks!: Task[];
@@ -18,8 +22,37 @@ export class TaskListComponent implements OnInit {
     this.loading = true;
     await this.tasks.getTasks().then((tasks) => {
       this.listOfTasks = tasks;
-      console.log(this.listOfTasks)
       this.loading = false;
+    });
+  }
+
+  editTask(task: Task){
+      const dialogRef = this.dialog.open(EditItemComponent, {
+        width: '500px',
+        data: task,
+      });
+  
+      dialogRef.afterClosed().subscribe((editedTask) => {
+          // Update the task with the edited data
+          if(editedTask){
+            this.getTaskList()
+
+          }
+        
+      });
+  }
+
+  deleteTask(task: Task){
+    const dialogRef = this.dialog.open(DeleteTaskComponent, {
+      width: '500px',
+      data: task,
+    });
+
+    dialogRef.afterClosed().subscribe((editedTask) => {
+      if(editedTask){
+        this.getTaskList()
+
+      }
     });
   }
 

@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDialogModule} from '@angular/material/dialog';
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
@@ -19,6 +22,10 @@ import { AdminComponent } from './components/dashboard/admin/admin.component';
 import { AddTaskComponent } from './components/dashboard/admin/add-task/add-task.component';
 import { TaskListComponent } from './components/dashboard/admin/task-list/task-list.component';
 import { TaskItemComponent } from './components/dashboard/admin/task-list/task-item/task-item.component';
+import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
+import { EditItemComponent } from './components/dashboard/admin/edit-item/edit-item.component';
+import { DeleteTaskComponent } from './components/dashboard/admin/delete-task/delete-task.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -39,12 +46,18 @@ export function tokenGetter() {
     AdminComponent,
     AddTaskComponent,
     TaskListComponent,
-    TaskItemComponent
+    TaskItemComponent,
+    PagenotfoundComponent,
+    EditItemComponent,
+    DeleteTaskComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
     HttpClientModule,
     FontAwesomeModule,
     JwtModule.forRoot({
@@ -53,6 +66,7 @@ export function tokenGetter() {
       allowedDomains: ["localhost:4200"]
       },
     }),
+  
     
 
   ],

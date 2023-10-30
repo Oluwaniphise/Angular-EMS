@@ -13,7 +13,6 @@ export class DashboardComponent implements OnInit {
   user = this.auth.getSessionFromLocalStorage()
 
   ngOnInit() {
-    console.log(this.user)
   }
 
 }

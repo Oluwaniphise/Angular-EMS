@@ -1,8 +1,16 @@
+<div class="flex flex-row justify-between gap-8 min-h-full max-w-md p-4 mt-5 border border-white">
+  <div class="flex flex-col">
+    <p>{{ task.task }}</p>
+    <small>{{ task.created_at | date : "medium" }}</small>
+    <small>Assigned to {{ task.employee }}</small>
+    <small>Status: {{ task.status }}</small>
+  </div>
 
-
-<div  class="flex flex-col max-w-md p-4 cursor-pointer mt-5 border border-white">
-    <p>{{task.task}}</p>
-    <small>{{task.created_at | date: 'medium'}}</small>
-    <small>Assigned to {{task.employee}}</small>
-
+  <div class="flex flex-row gap-4">
+ 
+        <fa-icon (click)="editTask(task)" class="cursor-pointer hover:text-yellow-500" [icon]="faEdit">
+      </fa-icon>
+    
+    <fa-icon (click)="deleteTask(task)" class="cursor-pointer hover:text-red-500" [icon]="faDelete"></fa-icon>
+  </div>
 </div>

@@ -10,6 +10,9 @@ import { AdminComponent } from './components/dashboard/admin/admin.component';
 import { AddTaskComponent } from './components/dashboard/admin/add-task/add-task.component';
 import { TasksComponent } from './components/dashboard/tasks/tasks.component';
 import { TaskListComponent } from './components/dashboard/admin/task-list/task-list.component';
+import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
+import { EditItemComponent } from './components/dashboard/admin/edit-item/edit-item.component';
+import { PermissionGuard } from './guard/permission.guard';
 
 export const routes: Routes = [
 
@@ -22,10 +25,15 @@ export const routes: Routes = [
     path: 'admin',
     component: AdminComponent,
     canActivate: [AuthGuard],
+    canActivateChild: [PermissionGuard],
     children:[
       {
         path: 'add-task',
         component: AddTaskComponent,
+      },
+      {
+        path: 'edit-task/:id',
+        component: EditItemComponent,
       },
       {
         path: 'task-list',
@@ -45,6 +53,11 @@ export const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: '**',
+    component: PagenotfoundComponent,
+    
   },
  
   
