@@ -46,33 +46,7 @@
         </div>
       </div>
 
-      <div class="mb-6">
-        <label for="created_at" class="block text-white font-medium mb-2"
-          >Status</label
-        >
-        <select
-          name="status"
-          class="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-          formControlName="status"
-          id="status"
-        >
-        <option selected disabled value="Select a status">Select a status</option>
-
-          <option  value="pending">Pending</option>
-          <option value="in_progress">In Progress</option>
-          <option value="done">Done</option>
-        </select>
-        <div
-          class="text-red-500"
-          *ngIf="
-            addTaskForm.get('status')?.invalid &&
-            (addTaskForm.get('status')?.dirty ||
-              addTaskForm.get('status')?.touched)
-          "
-        >
-          Select status
-        </div>
-      </div>
+ 
 
 
       <div class="mb-6">

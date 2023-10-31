@@ -21,6 +21,11 @@ export class TasksComponent implements OnInit {
     });
   }
 
+  filterTasks(status: string){
+    return this.tasksList.filter(s => s.status === status)
+  }
+
+
   updateToProgress(task: Task) {
     this.loading = true;
     this.tasks.setToInProgress(task).then((_) => {
@@ -55,5 +60,6 @@ export class TasksComponent implements OnInit {
 
   ngOnInit() {
     this.getTasks();
+    
   }
 }

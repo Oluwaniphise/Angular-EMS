@@ -116,7 +116,7 @@ export class TasksService {
         {
           task: task.task,
           created_at: task.created_at,
-          status: task.status,
+          status: 'pending',
           employee: task.employee,
         },
       ]);
@@ -140,6 +140,8 @@ export class TasksService {
 
     return data as unknown as Employee[];
   }
+
+  
 
   async getUserProfile(): Promise<Profile> {
     const tokenString = localStorage.getItem('access_token');

@@ -15,8 +15,8 @@ export class FormGuardGuard implements CanDeactivate<SaveData> {
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
-      if(component.isDataSaved()){
+      console.log(component)
+      if(!component.isDataSaved()){
         const dialogRef = this.dialog.open(ConfirmDialogComponent)
         return dialogRef.afterClosed()
 

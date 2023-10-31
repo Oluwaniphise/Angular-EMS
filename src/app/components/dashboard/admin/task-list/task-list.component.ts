@@ -19,6 +19,7 @@ export class TaskListComponent implements OnInit {
   async getTaskList() {
     this.loading = true;
     await this.tasks.getTasks().then((tasks) => {
+      console.log(tasks)
       this.listOfTasks = tasks;
       this.loading = false;
     });

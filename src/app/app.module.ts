@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
+import {DragDropModule} from '@angular/cdk/drag-drop'
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -58,6 +59,7 @@ export function tokenGetter() {
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    DragDropModule,
     HttpClientModule,
     FontAwesomeModule,
     JwtModule.forRoot({

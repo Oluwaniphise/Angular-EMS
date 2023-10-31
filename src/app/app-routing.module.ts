@@ -28,26 +28,26 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     canActivateChild: [PermissionGuard],
     children:[
+
+      
       {
         path: 'add-task',
         component: AddTaskComponent,
         canDeactivate:[FormGuardGuard]
       },
       {
-        path: 'edit-task/:id',
-        component: EditItemComponent,
-      },
-      {
         path: 'task-list',
         component: TaskListComponent,
       },
+      {
+        path: '',
+        redirectTo: 'task-list', pathMatch: 'full'
+      }
+      
      
     ]
   },
-  {
-    path: '',
-    component: HomeComponent,
-  },
+  
   {
     path: 'login',
     component: LoginComponent,
@@ -55,6 +55,12 @@ export const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: '',
+    component: HomeComponent,
+    redirectTo: '', pathMatch: 'full'
+
   },
   {
     path: '**',

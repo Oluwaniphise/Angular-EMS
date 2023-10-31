@@ -1,7 +1,27 @@
+<router-outlet></router-outlet>
 <small *ngIf="loading">loading...</small>
 
 
-<div class="pb-36 grid grid-cols-1 gap-10 md:grid-cols-3">
-    <app-task-item (deleteTaskOutput)="deleteTask(task)" (editTaskOutput)="editTask(task)" *ngFor="let task of listOfTasks" [task]="task"></app-task-item>
 
-</div>
+<ng-container *ngIf="listOfTasks.length  > 0" class="">
+
+
+    <div class="pb-36 grid grid-cols-1 gap-10 md:grid-cols-3">
+        <app-task-item (deleteTaskOutput)="deleteTask(task)" (editTaskOutput)="editTask(task)" *ngFor="let task of listOfTasks" [task]="task"></app-task-item>
+    
+    </div>
+</ng-container>
+
+
+<ng-container *ngIf="listOfTasks.length === 0" >
+
+    <div class="flex flex-col h-screen justify-center items-center">
+        <h1 class="text-2xl">You have not added any tasks</h1>
+
+        <a routerLink="/admin/add-task" class="text-underline text-blue-600">Add Task</a>
+    </div>
+
+</ng-container>
+
+
+
