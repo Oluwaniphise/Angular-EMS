@@ -1,4 +1,4 @@
-<div class="flex flex-row justify-between gap-8 min-h-full max-w-md p-4 mt-5 border border-white">
+<!-- <div class="flex flex-row justify-between  gap-8  max-w-md p-4 mt-5 border border-white">
   <div class="flex flex-col">
     <p>{{ task.task }}</p>
     <small>{{ task.created_at | date : "medium" }}</small>
@@ -13,4 +13,50 @@
     
     <fa-icon (click)="deleteTask(task)" class="cursor-pointer hover:text-red-500" [icon]="faDelete"></fa-icon>
   </div>
-</div>
+</div> -->
+
+<ng-container>
+  <div class="px-4 py-5 mt-5 border rounded-md shadow-lg  bg-white">
+    <h3 class="font-bold">{{ task.task }}</h3>
+    <p class="text-sm font-thin">{{ task.description }}</p>
+    <div class="mt-[2rem] flex flex-row justify-between items-baseline">
+      <div>
+        <div class="bg-[#008793] h-10 w-10 rounded-full">
+          <p class="flex items-center justify-center h-full text-white">
+            {{task.employee.charAt(0).toUpperCase()}}
+          </p>
+        </div>
+
+      </div>
+
+      <div>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button (click)="editTask(task)" mat-menu-item>
+            <fa-icon
+              class="cursor-pointer"
+              [icon]="faEdit"
+            >
+            </fa-icon>
+           <span class="ml-2">Edit Task</span> 
+          </button>
+
+          <button (click)="deleteTask(task)" mat-menu-item>
+            <fa-icon
+              class="cursor-pointer text-red-500"
+              [icon]="faDelete"
+            ></fa-icon>
+
+            <span class="ml-2">Delete Task</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</ng-container>

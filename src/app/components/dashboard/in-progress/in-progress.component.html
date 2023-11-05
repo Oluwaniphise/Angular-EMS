@@ -1,13 +1,31 @@
-<ng-container  *ngIf="task.status === 'in_progress'">
+<ng-container>
 
-    <div (dblclick)="moveToDone(task)" class="flex flex-row justify-between p-4 mt-5 border border-white">
-        <div class="cursor-pointer">
-            <p>{{task.task}}</p>
-            <small>{{task.created_at | date: 'medium'}}</small>
+    <div  class=" px-4 py-5 mt-5 border  rounded-xl  shadow-xl bg-white">
+        <h3 class="font-bold">{{task.task}}</h3>
+        <p class="text-sm  font-thin">{{task.description}}</p>
+        <div class="flex flex-row justify-between items-baseline">
+            <div>
+                <small><span class="text-bold">{{task.deadline | dayDifference}}</span> days left</small>
+            </div>
+
+            <div>
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button (click)="moveToDone(task)" mat-menu-item>
+                      <fa-icon [icon]="faArrowRight"></fa-icon>
+                      <span class="ml-2" >Move to Done</span>
+                    </button>
+                    <button (click)="reverseToPending(task)" mat-menu-item>
+                      <fa-icon [icon]="faArrowLeft"></fa-icon>
+                      <span class="ml-2" >Back to pending</span>
+                    </button>
+                  
+                  </mat-menu>
+                  
+            </div>
         </div>
-     <div>
-        <fa-icon class="cursor-pointer" (click)="reverseToPending(task)" [icon]="faBack"></fa-icon>
-     </div>
 
     </div>
 

@@ -3,6 +3,8 @@ export interface Task{
     task: string;
     status: string;
     created_at: Date;
-    employee: string
+    employee: string;
+    description: string;
+    deadline: Date
 
 }

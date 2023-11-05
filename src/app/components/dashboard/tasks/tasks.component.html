@@ -1,26 +1,27 @@
-<div class="container mx-auto py-32">
-    <h1 class="text-4xl text-center mb-10 text-blue-700">Your Tasks</h1>
+<div class="py-6">
+    <!-- <h1 class="text-4xl text-center mb-10   ">Your Tasks</h1> -->
     <div *ngIf="loading">
         <small>loading...</small>
 </div>
 
 
-    <div *ngIf="!loading" class="flex flex-col md:flex-row gap-16 gap-y-10 justify-between ">
+    <div *ngIf="!loading" class="pt-16 flex flex-col md:flex-row  gap-y-10 justify-between ">
 
-        <div class="w-full md:w-1/3">
-            <h2 class="text-left md:text-center text-2xl mb-4 text-blue-700">Pending Tasks</h2>
-            <app-pending (updateProgress)="updateToProgress(task)"  *ngFor="let task of tasksList" [task]="task"></app-pending>
+        <div  class="  p-5 w-full md:w-1/3">
+            <h2 class=" text-2xl mb-4 ">Pending ({{filterTasks('pending').length}})</h2>
+            <app-pending  (updateProgress)="updateToProgress(task)"  *ngFor="let task of filterTasks('pending')" [task]="task"></app-pending>
         </div>
     
-        <div  class="w-full md:w-1/3">
-            <h2 class="text-left md:text-center text-2xl mb-4 text-blue-700">Tasks In Progress</h2>
-            <app-in-progress (forwardToDone)="updateToDone(task)" (backToPending)="returnBackToPending(task)" *ngFor="let task of tasksList" [task]="task"></app-in-progress>
+        <div  class=" p-5 w-full md:w-1/3">
+            <h2 class=" text-2xl mb-4">In Progress ({{filterTasks('in_progress').length}})</h2>
+            <app-in-progress (forwardToDone)="updateToDone(task)" (backToPending)="returnBackToPending(task)" *ngFor="let task of filterTasks('in_progress')" [task]="task"></app-in-progress>
         </div>
     
-        <div class="w-full md:w-1/3">
-            <h2 class="text-left md:text-center text-2xl mb-4 text-blue-700">Completed Tasks</h2>
-            <app-done (backToInProgress)="returnBackToInProgress(task)" *ngFor="let task of tasksList" [task]="task"></app-done>
+        <div class="p-5 w-full md:w-1/3">
+            <h2 class=" text-2xl mb-4">Completed ({{filterTasks('done').length}})</h2>
+            <app-done (backToInProgress)="returnBackToInProgress(task)" *ngFor="let task of filterTasks('done')" [task]="task"></app-done>
         </div>
+        
     </div>
 
     

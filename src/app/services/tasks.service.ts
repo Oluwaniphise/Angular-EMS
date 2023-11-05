@@ -22,16 +22,46 @@ export class TasksService {
 
   constructor(private supabase: SupabaseService) {}
 
-  async getTasks(): Promise<Task[]> {
+  async getUserTasks(): Promise<Task[]> {
+    const userProfile = localStorage.getItem('UserProfile');
+    let user_profile: any = userProfile
+    if(user_profile) {
+      JSON.parse(user_profile)
+    }
+    console.log(user_profile)
+    
+    
     let { data, error } = await this.supabase.supabaseClient
       .from('todos')
-      .select('*');
+      .select('*').eq('employee', user_profile?.username);
+
     if (error) {
       return error as unknown as Task[];
     }
 
     return data as Task[];
   }
+  async getTasks(): Promise<Task[]> {
+    const userProfile = localStorage.getItem('UserProfile');
+    let user_profile: any = userProfile
+    if(user_profile) {
+      JSON.parse(user_profile)
+    }
+    
+    
+    let { data, error } = await this.supabase.supabaseClient
+      .from('todos')
+      .select('*');
+
+    if (error) {
+      return error as unknown as Task[];
+    }
+
+    return data as Task[];
+  }
+
+
+
 
   async setToInProgress(task: Task): Promise<Task> {
     let { data, error } = await this.supabase.supabaseClient
@@ -89,6 +119,7 @@ export class TasksService {
         status: task.status,
         created_at: task.created_at,
         employee: task.employee,
+        description: task.description,
       })
       .eq('id', task.id);
     if (error) {
@@ -97,6 +128,31 @@ export class TasksService {
 
     return data as unknown as Task;
   }
+
+
+  async addTask(task: Task): Promise<Task> {
+    const date = new Date().toISOString()
+    const { data, error } = await this.supabase.supabaseClient
+      .from('todos')
+      .insert([
+        {
+          task: task.task,
+          created_at:date,
+          status: 'pending',
+          employee: task.employee,
+          deadline: task.deadline,
+          description: task.description,
+
+        },
+      ]);
+
+    if (error) {
+      return error as unknown as Task;
+    }
+
+    return data as unknown as Task;
+  }
+
   async deleteTask(task: Task): Promise<Task> {
     let { data, error } = await this.supabase.supabaseClient
       .from('todos')
@@ -109,57 +165,4 @@ export class TasksService {
     return data as unknown as Task;
   }
 
-  async addTask(task: Task): Promise<Task> {
-    const { data, error } = await this.supabase.supabaseClient
-      .from('todos')
-      .insert([
-        {
-          task: task.task,
-          created_at: task.created_at,
-          status: 'pending',
-          employee: task.employee,
-        },
-      ]);
-
-    if (error) {
-      return error as unknown as Task;
-    }
-
-    return data as unknown as Task;
-  }
-  async getEmployees(): Promise<Employee[]> {
-    const { data, error } = await this.supabase.supabaseClient
-
-      .from('profiles')
-      .select('*')
-      .eq('role', 'user');
-
-    if (error) {
-      return error as unknown as Employee[];
-    }
-
-    return data as unknown as Employee[];
-  }
-
-  
-
-  async getUserProfile(): Promise<Profile> {
-    const tokenString = localStorage.getItem('access_token');
-    let user: any;
-    if (tokenString !== null) {
-      user = jwtDecode(tokenString);
-    }
-
-    const { data, error } = await this.supabase.supabaseClient
-
-      .from('profiles')
-      .select('*')
-      .eq('id', user.sub);
-
-    if (error) {
-      return error as unknown as Profile;
-    }
-
-    return data as unknown as Profile;
-  }
 }

@@ -1,12 +1,13 @@
-<router-outlet></router-outlet>
-<small *ngIf="loading">loading...</small>
 
+<router-outlet></router-outlet>
+
+<small *ngIf="loading">loading...</small>
 
 
 <ng-container *ngIf="listOfTasks.length  > 0" class="">
 
 
-    <div class="pb-36 grid grid-cols-1 gap-10 md:grid-cols-3">
+    <div class="pb-36  grid grid-cols-1 gap-5 md:grid-cols-4">
         <app-task-item (deleteTaskOutput)="deleteTask(task)" (editTaskOutput)="editTask(task)" *ngFor="let task of listOfTasks" [task]="task"></app-task-item>
     
     </div>

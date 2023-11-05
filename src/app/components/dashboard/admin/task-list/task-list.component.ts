@@ -4,6 +4,7 @@ import { Task } from 'src/app/task.interface';
 import { EditItemComponent } from '../edit-item/edit-item.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteTaskComponent } from '../delete-task/delete-task.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-task-list',
@@ -11,7 +12,7 @@ import { DeleteTaskComponent } from '../delete-task/delete-task.component';
   styleUrls: ['./task-list.component.css'],
 })
 export class TaskListComponent implements OnInit {
-  constructor(private tasks: TasksService, private dialog: MatDialog) {}
+  constructor(private tasks: TasksService, private dialog: MatDialog, private activatedRoute: ActivatedRoute) {}
 
   loading = false;
   listOfTasks!: Task[];
@@ -52,6 +53,9 @@ export class TaskListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getTaskList();
+    // this.getTaskList();
+    this.listOfTasks = this.activatedRoute.snapshot.data['tasks']
+    console.log(this.activatedRoute.data)
+
   }
 }

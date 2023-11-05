@@ -14,6 +14,9 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 import { EditItemComponent } from './components/dashboard/admin/edit-item/edit-item.component';
 import { PermissionGuard } from './guard/permission.guard';
 import { FormGuardGuard } from './guard/form-guard.guard';
+import { TasksResolverResolver } from './resolver/user-tasks-resolver.resolver';
+import { UserProfileResolver } from './resolver/user-profile.resolver';
+import { AllTasksResolver } from './resolver/all-tasks.resolver';
 
 export const routes: Routes = [
 
@@ -21,6 +24,11 @@ export const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuard],
+    resolve: {
+      userTasks: AllTasksResolver,
+      profile: UserProfileResolver
+    }
+    
   },
   {
     path: 'admin',
@@ -38,6 +46,13 @@ export const routes: Routes = [
       {
         path: 'task-list',
         component: TaskListComponent,
+        resolve: {
+          tasks: AllTasksResolver,
+          
+
+        }
+
+        
       },
       {
         path: '',
@@ -51,6 +66,7 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  
   },
   {
     path: 'register',

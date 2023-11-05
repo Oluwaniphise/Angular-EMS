@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TasksService } from 'src/app/services/tasks.service';
 import { Task } from 'src/app/task.interface';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tasks',
@@ -11,8 +11,10 @@ import { Router } from '@angular/router';
 export class TasksComponent implements OnInit {
   loading = false;
   tasksList!: Task[];
-  constructor(private tasks: TasksService, private router: Router) {}
+  constructor(private tasks: TasksService, private router: Router, private activatedRoute: ActivatedRoute) {
 
+  }
+  
   async getTasks() {
     this.loading = true;
     await this.tasks.getTasks().then((tasks) => {
@@ -59,7 +61,6 @@ export class TasksComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getTasks();
-    
+    this.tasksList = this.activatedRoute.snapshot.data['userTasks']
   }
 }

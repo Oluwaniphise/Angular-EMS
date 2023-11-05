@@ -1,0 +1,111 @@
+<div class="w-full">
+    <div class="max-w-xl border bg-white border-white p-8 rounded   ">
+      <h2 class="text-2xl font-semibold text-black mb-6">{{title}}</h2>
+      <form [formGroup]="taskForm" (ngSubmit)="submitForm()">
+        <div class="mb-4">
+          <label for="task" class="block text-black font-medium mb-2"
+            >Title</label
+          >
+          <input
+          type="text"
+          id="task"
+          formControlName="task"
+          class="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+        />
+          <div
+            class="text-red-500"
+            *ngIf="
+              taskForm.get('task')?.invalid &&
+              (taskForm.get('task')?.dirty || taskForm.get('task')?.touched)
+            "
+          >
+            Please provide a task title
+          </div>
+          
+        </div>
+
+        <div class="mb-4">
+          <label for="task" class="block text-black font-medium mb-2"
+            >Description</label
+          >
+          <textarea
+            type="text"
+            id="description"
+            formControlName="description"
+            class="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+            placeholder="add a testimonial to the website"
+          ></textarea>
+          <div
+            class="text-red-500"
+            *ngIf="
+              taskForm.get('description')?.invalid &&
+              (taskForm.get('description')?.dirty || taskForm.get('description')?.touched)
+            "
+          >
+            Please provide a description
+          </div>
+          
+        </div>
+        <div class="mb-6">
+          <label for="deadline" class="block text-black font-medium mb-2"
+            >Deadline</label
+          >
+          <input
+            type="date"
+            id="deadline"
+            formControlName="deadline"
+            class="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+          />
+          <div
+            class="text-red-500"
+            *ngIf="
+              taskForm.get('deadline')?.invalid &&
+              (taskForm.get('deadline')?.dirty ||
+                taskForm.get('deadline')?.touched)
+            "
+          >
+            Select deadline
+          </div>
+        </div>
+
+   
+  
+  
+        <div class="mb-6">
+          <label for="created_at" class="block text-black font-medium mb-2"
+            >Employee</label
+          >
+          <select
+            name="status"
+            class="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+            formControlName="employee"
+            id="employee"
+          >
+          <option selected disabled  value="Select an employee">Select an employee</option>
+            <option *ngFor="let employee of employees"  value="{{employee.username}}">
+              {{employee.username}}
+            </option>
+          </select>
+          <div
+            class="text-red-500"
+            *ngIf="
+              taskForm.get('employee')?.invalid &&
+              (taskForm.get('employee')?.dirty ||
+                taskForm.get('employee')?.touched)
+            "
+          >
+            Select employee
+          </div>
+        </div>
+
+        <button
+          type='submit'
+          [disabled]="!taskForm.valid"
+          class="w-full bg-[#008793]  text-white p-2 rounded-md"
+        >
+         {{taskData ? 'Update': 'Submit'}}
+        </button>
+      </form>
+    </div>
+  </div>
+  

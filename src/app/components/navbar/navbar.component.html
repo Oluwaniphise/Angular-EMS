@@ -1,23 +1,71 @@
 <nav
-  class="  bg-black text-white px-5 flex flex-row justify-between items-center flex-wrap py-5"
+  class="bg-white px-5 flex flex-row justify-between items-center flex-wrap py-3"
 >
   <a routerLink="/" class="text-3xl">EMS</a>
 
   <div>
     <div
-      class="flex flex-row justify-between gap-5 md:gap-20"
-      *ngIf="!authenticatedUser"
+      class="flex flex-row justify-between items-center gap-5 md:gap-20"
+      *ngIf="!(isLoggedIn | async)"
     >
-      <a routerLink="/login" routerLinkActive="active">Login</a>
-      <a routerLink="/register" routerLinkActive="active">Register</a>
+      <div>
+        <a routerLink="/login" routerLinkActive="active">Login</a>
+      </div>
+
+      <div>
+        <a routerLink="/register" routerLinkActive="active">Register</a>
+      </div>
     </div>
     <div
-      class="flex flex-row justify-between gap-5 md:gap-20"
-      *ngIf="authenticatedUser"
+      class="flex flex-row justify-between items-center gap-5 md:gap-20"
+      *ngIf="isLoggedIn | async"
     >
-      <a routerLink="/dashboard" routerLinkActive="active" class="">Dashboard</a>
-      <a routerLink="/admin" routerLinkActive="active" class="">Admin</a>
-      <p (click)="signOut()" class="cursor-pointer">Logout</p>
+      <div>
+        <a routerLink="/dashboard" routerLinkActive="active" class=""
+          >Dashboard</a
+        >
+      </div>
+
+      <ng-container class="" *ngIf="isAdmin | async">
+        <a routerLink="/admin" routerLinkActive="active" class="">Admin</a>
+      </ng-container>
+
+
+      <div class="flex flex-row items-center gap-x-2">
+        <div class="flex flex-row gap-x-2">
+          <div class="flex  items-center text-center">
+            <div class="bg-[#008793] h-10 w-10 rounded-full">
+              <p class="flex items-center justify-center h-full text-white">
+                {{userProfile.username.charAt(0).toUpperCase()}}
+              </p>
+            </div>
+
+          </div>
+
+     
+      </div>
+
+      </div>
     </div>
   </div>
 </nav>
+
+
+
+ <div class="flex justify-end">
+  <div>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Dashboard Menu"
+    >
+      <fa-icon [icon]="caretDown"></fa-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button (click)="signOut()" mat-menu-item>
+        <fa-icon></fa-icon>
+        <span class="ml-2">Log Out</span>
+      </button>
+    </mat-menu>
+  </div>
+</div>

@@ -1,11 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Task } from 'src/app/task.interface';
 import { TasksService } from 'src/app/services/tasks.service';
 import { Employee } from 'src/app/employee.interface';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material/dialog';
+import { TaskFormComponent } from 'src/app/components/task-form/task-form.component';
+
 
 @Component({
   selector: 'app-edit-item',
@@ -13,47 +14,28 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./edit-item.component.css'],
 })
 export class EditItemComponent implements OnInit {
+  title: string = 'Edit Task';
+  @ViewChild(TaskFormComponent) taskFormComponent!: TaskFormComponent
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public task: Task,
     private taskService: TasksService,
-    private fb: FormBuilder,
     private router: Router,
     public dialogRef: MatDialogRef<EditItemComponent>
   ) {}
-  editForm!: FormGroup;
-  employees: Employee[] = [];
   loading = false;
 
-  async getEmployees() {
-    await this.taskService.getEmployees().then((res) => {
-      this.employees = res;
-    });
-  }
 
-  onSubmit() {
-    this.loading = true;
+  editTask(task: Task) {
     this.taskService
-      .updateTask(this.editForm.value)
+      .updateTask(task)
       .then((_) => {
-        this.dialogRef.close(this.task)
+        this.dialogRef.close(task)
       })
-      .catch((err) => { 
-        console.log(err)
-      })
-      .finally(() => {
-        this.loading = false;
+      .catch((err) => console.log(err)).finally(() => {
+        this.taskFormComponent.taskForm.reset()
       });
   }
-
   ngOnInit() {
-    this.editForm = this.fb.group({
-      task: this.fb.control(this.task.task, [Validators.required]),
-      created_at: this.fb.control(this.task.created_at, [Validators.required]),
-      status: this.fb.control(this.task.status, [Validators.required]),
-      employee: this.fb.control(this.task.employee, [Validators.required]),
-      id: this.fb.control(this.task.id),
-    });
-
-    this.getEmployees();
   }
 }

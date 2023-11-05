@@ -1,9 +1,28 @@
-<ng-container  *ngIf="task.status === 'pending'">
+<div>
 
-    <div (dblclick)="inProgress(task)" class="p-4 cursor-pointer mt-5 border border-white">
-        <p>{{task.task}}</p>
-        <small>{{task.created_at | date: 'medium'}}</small>
+    <div  class=" px-4 py-5 mt-5 border rounded-xl bg-white shadow-lg">
+        <h3 class="font-bold">{{task.task}}</h3>
+        <p class="text-sm  font-thin">{{task.description}}</p>
+        <div class="flex flex-row justify-between items-baseline">
+            <div>
+                <small><span class="text-bold">{{task.deadline | dayDifference}}</span> days left</small>
+            </div>
+
+            <div>
+                <button class="" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button (click)="inProgress(task)" mat-menu-item>
+                      <fa-icon [icon]="faArrowRight"></fa-icon>
+                      <span class="ml-2" >Move to in progress</span>
+                    </button>
+                  
+                  </mat-menu>
+                  
+            </div>
+        </div>
 
     </div>
 
-</ng-container>
+</div>

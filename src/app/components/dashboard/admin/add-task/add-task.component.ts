@@ -1,62 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Employee } from 'src/app/employee.interface';
 import { TasksService } from 'src/app/services/tasks.service';
 import { SaveData } from 'src/app/save-data-interface';
-
+import { Task } from 'src/app/task.interface';
+import { TaskFormComponent } from 'src/app/components/task-form/task-form.component';
 @Component({
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
-  styleUrls: ['./add-task.component.css']
+  styleUrls: ['./add-task.component.css'],
 })
 export class AddTaskComponent implements OnInit, SaveData {
+  loading = false;
+  title: string = 'Add Task'
+  @ViewChild(TaskFormComponent) taskFormComponent!: TaskFormComponent
+  constructor(private taskService: TasksService, private router: Router) {}
 
-  addTaskForm!: FormGroup
-  employees: Employee[] = []
-  loading = false
-  isSubmitted = false
-  constructor(private fb: FormBuilder, private taskService: TasksService, private router: Router) { }
-
-  async getEmployees(){
-   await this.taskService.getEmployees().then((res) => {
-      this.employees = res
-    })
-  }
-
-  async addTask(){
+  ngOnInit(): void {
     
   }
 
-  ngOnInit(): void {
-    this.addTaskForm = this.fb.group({
-      task: this.fb.control('', [Validators.required]),
-      created_at: this.fb.control('', [Validators.required]),
-      employee: this.fb.control('', [Validators.required]),
-    })
-
-    this.getEmployees()
+  addTask(taskData: Task) {
+    console.log(taskData)
+    this.taskService
+      .addTask(taskData)
+      .then((res) => {
+        this.router.navigate(['/admin/task-list']);
+        this.taskFormComponent.taskForm.reset()
+      })
+      .catch((err) => console.log(err)).finally(() => {
+        this.taskFormComponent.taskForm.reset()
+      });
   }
 
-  isDataSaved() {
-    return !this.addTaskForm.dirty
+  isDataSaved(): boolean{
+    return !this.taskFormComponent.taskForm.dirty
   }
-
-  onSubmit(){
-    this.loading = true
-    this.taskService.addTask(this.addTaskForm.value).then((res) => {
-      console.log(res)
-      this.addTaskForm.reset()
-      this.router.navigate(['/admin'])
-    }).catch(err => console.log(err)).finally(
-      () => {
-        this.loading= false
-      }
-    )
-   
-  }
-
-
- 
-
 }
