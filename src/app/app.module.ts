@@ -33,6 +33,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { UserActionsComponent } from './components/user-actions/user-actions.component';
+import { SearchTaskComponent } from './components/user-actions/search-task/search-task.component';
+import { FilterTaskComponent } from './components/user-actions/filter-task/filter-task.component';
 export function tokenGetter() {
   return localStorage.getItem("access_token");
 }
@@ -60,6 +62,8 @@ export function tokenGetter() {
     TaskFormComponent,
     DayDifferencePipe,
     UserActionsComponent,
+    SearchTaskComponent,
+    FilterTaskComponent,
   ],
   imports: [
     BrowserModule,

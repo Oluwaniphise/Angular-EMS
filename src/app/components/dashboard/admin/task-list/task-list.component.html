@@ -1,28 +1,42 @@
+<div
+  class="w-full my-8 flex flex-col md:flex-row items-center h-full gap-x-3 bg-white py-6 px-9 rounded-xl shadow-xl"
+>
+  <app-filter-task></app-filter-task>
+
+  <div class="flex items-center h-6 mx-4 w-3 border-l border-gray-300"></div>
+
+  <app-search-task (emitSearch)="searchTask($event)"></app-search-task>
+
+  <div class="flex flex-row items-center justify-end h-full basis-1/2">
+    24 other people
+  </div>
+</div>
 
 <router-outlet></router-outlet>
 
 <small *ngIf="loading">loading...</small>
 
-
-<ng-container *ngIf="listOfTasks.length  > 0" class="">
-
-
-    <div class="pb-36  grid grid-cols-1 gap-5 md:grid-cols-4">
-        <app-task-item (deleteTaskOutput)="deleteTask(task)" (editTaskOutput)="editTask(task)" *ngFor="let task of listOfTasks" [task]="task"></app-task-item>
-    
-    </div>
+<ng-container *ngIf="listOfTasks.length > 0" class="">
+  <div class="pb-36 grid grid-cols-1 gap-5 md:grid-cols-4">
+      <ng-container *ngFor="let task of listOfTasks" >
+      <app-task-item
+      (deleteTaskOutput)="deleteTask(task)"
+      (editTaskOutput)="editTask(task)"
+      [task]="task"
+      *ngIf="searchText === '' || task.task.toLowerCase().includes(searchText)"
+    >
+  </app-task-item>
+    </ng-container>
+  
+  </div>
 </ng-container>
 
+<ng-container *ngIf="listOfTasks.length === 0">
+  <div class="flex flex-col h-screen justify-center items-center">
+    <h1 class="text-2xl">You have not added any tasks</h1>
 
-<ng-container *ngIf="listOfTasks.length === 0" >
-
-    <div class="flex flex-col h-screen justify-center items-center">
-        <h1 class="text-2xl">You have not added any tasks</h1>
-
-        <a routerLink="/admin/add-task" class="text-underline text-blue-600">Add Task</a>
-    </div>
-
+    <a routerLink="/admin/add-task" class="text-underline text-blue-600"
+      >Add Task</a
+    >
+  </div>
 </ng-container>
-
-
-

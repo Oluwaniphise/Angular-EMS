@@ -33,13 +33,27 @@
 
       <div class="flex flex-row items-center gap-x-2">
         <div class="flex flex-row gap-x-2">
-          <div class="flex  items-center text-center">
+          <div class="flex flex-row  items-center text-center">
             <div class="bg-[#008793] h-10 w-10 rounded-full">
               <p class="flex items-center justify-center h-full text-white">
                 {{userProfile.username.charAt(0).toUpperCase()}}
               </p>
             </div>
-
+            <div>
+              <button
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+                aria-label="Dashboard Menu"
+              >
+                <fa-icon [icon]="caretDown"></fa-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button (click)="signOut()" mat-menu-item>
+                  <fa-icon></fa-icon>
+                  <span class="ml-2">Log Out</span>
+                </button>
+              </mat-menu>
+            </div>
           </div>
 
      
@@ -52,20 +66,3 @@
 
 
 
- <div class="flex justify-end">
-  <div>
-    <button
-      mat-icon-button
-      [matMenuTriggerFor]="menu"
-      aria-label="Dashboard Menu"
-    >
-      <fa-icon [icon]="caretDown"></fa-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button (click)="signOut()" mat-menu-item>
-        <fa-icon></fa-icon>
-        <span class="ml-2">Log Out</span>
-      </button>
-    </mat-menu>
-  </div>
-</div>

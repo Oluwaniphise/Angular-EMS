@@ -52,10 +52,17 @@ export class TaskListComponent implements OnInit {
     });
   }
 
+  searchText: string = ''
+
+  searchTask(searchValue: string){
+    this.searchText = searchValue
+    console.log(this.searchText)
+
+
+  }
   ngOnInit() {
     // this.getTaskList();
     this.listOfTasks = this.activatedRoute.snapshot.data['tasks']
-    console.log(this.activatedRoute.data)
 
   }
 }

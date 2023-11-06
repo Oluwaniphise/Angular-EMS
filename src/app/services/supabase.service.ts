@@ -88,7 +88,7 @@ export class SupabaseService {
 
       .from('profiles')
       .select('*')
-      .eq('email', user.email)
+      .eq('email', user?.email)
       .single();
     localStorage.setItem('UserProfile', JSON.stringify(data));
 
