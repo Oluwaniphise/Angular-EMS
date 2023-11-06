@@ -12,21 +12,41 @@ import { Employee } from '../employee.interface';
 export class SupabaseService {
   private supabase: SupabaseClient;
   isAdminSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  currentUserProfile: BehaviorSubject<Profile> = new BehaviorSubject({
+    id: "",
+    username: "",
+    full_name: '',
+    avatar_url: '',
+    role: "",
+    email: "",
+    todo: ''
+});
 
   isLoginSubject = new BehaviorSubject<boolean>(this.hasToken());
+  
 
   constructor() {
+    
     this.supabase = createClient(
       environment.supabaseUrl,
       environment.supabaseKey
     );
 
+    const user = localStorage.getItem('UserProfile')
+    if(user){
+      this.currentUserProfile.next(JSON.parse(user))
+
+    }
+
     this.isAdminSubject.next(this.isAdmin());
-    console.log(this.isAdmin());
   }
 
   get currentRole() {
     return this.isAdminSubject.value;
+  }
+
+  get Profile(){
+    return this.currentUserProfile.value as Profile
   }
 
   private hasToken(): boolean {

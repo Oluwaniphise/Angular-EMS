@@ -41,13 +41,8 @@ export class TasksService {
 
     return data as Task[];
   }
+  
   async getTasks(): Promise<Task[]> {
-    const userProfile = localStorage.getItem('UserProfile');
-    let user_profile: any = userProfile
-    if(user_profile) {
-      JSON.parse(user_profile)
-    }
-    
     
     let { data, error } = await this.supabase.supabaseClient
       .from('todos')

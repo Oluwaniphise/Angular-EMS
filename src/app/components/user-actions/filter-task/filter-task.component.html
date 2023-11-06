@@ -1,14 +1,22 @@
 <div
-    class="flex flex-row h-full basis-1/6 bg-yellow-400 items-center  text-center gap-x-3"
+    class="flex relative flex-row h-full basis-1/6 items-center cursor-pointer  text-center gap-x-3"
   >
     <div>
           
           <fa-icon size="lg" [icon]="faFilter"></fa-icon>
     </div>
-      <p class="font-thin h-full bg-red-600 text-gray-500 text-[14px]">Quick Filters</p>
-    <div>
-      <fa-icon size="lg" [icon]="faCaretDown"></fa-icon>
-    </div>
+      <div class="">
+        <select [(ngModel)]="selectedCategory" (change)="applyFilter()" class="outline-none  border-none">
+          <option selected disabled value="select a filter">Quick Filters</option>
+          <option value="">All</option>
+          <option value="pending">Pending</option>
+          <option value="in_progress">In Progress</option>
+          <option value="done">Done</option>
+        </select>
+      </div>
+    
+
+  
 
   
   </div>

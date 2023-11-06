@@ -35,8 +35,13 @@
         <div class="flex flex-row gap-x-2">
           <div class="flex flex-row  items-center text-center">
             <div class="bg-[#008793] h-10 w-10 rounded-full">
-              <p class="flex items-center justify-center h-full text-white">
+              <p *ngIf="userProfile?.username" class="flex items-center justify-center h-full text-white">
+
                 {{userProfile.username.charAt(0).toUpperCase()}}
+              </p>
+              <p *ngIf="!userProfile?.username" class="flex items-center justify-center h-full text-white">
+
+                U
               </p>
             </div>
             <div>

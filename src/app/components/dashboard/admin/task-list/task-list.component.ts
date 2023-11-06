@@ -12,18 +12,28 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./task-list.component.css'],
 })
 export class TaskListComponent implements OnInit {
-  constructor(private tasks: TasksService, private dialog: MatDialog, private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private tasks: TasksService,
+    private dialog: MatDialog,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   loading = false;
   listOfTasks!: Task[];
+  filteredTasks!: Task[];
 
   async getTaskList() {
     this.loading = true;
     await this.tasks.getTasks().then((tasks) => {
-      console.log(tasks)
       this.listOfTasks = tasks;
+      this.filteredTasks = [...this.listOfTasks];
       this.loading = false;
     });
+  }
+  async getUserTasks() {
+    await this.tasks.getUserTasks().then((tasks) => {
+      console.log(tasks);
+    }).catch(err => console.log(err));
   }
 
   editTask(task: Task) {
@@ -52,17 +62,26 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  searchText: string = ''
+  searchText: string = '';
 
-  searchTask(searchValue: string){
-    this.searchText = searchValue
-    console.log(this.searchText)
+  searchTask(searchValue: string) {
+    this.searchText = searchValue;
+  }
 
-
+  onFilteredChange(selectedCategory: string) {
+    if (selectedCategory === '') {
+      this.filteredTasks = [...this.listOfTasks];
+    } else {
+      this.filteredTasks = this.listOfTasks.filter(
+        (task) => task.status === selectedCategory
+      );
+    }
   }
   ngOnInit() {
-    // this.getTaskList();
-    this.listOfTasks = this.activatedRoute.snapshot.data['tasks']
 
+    this.listOfTasks = this.activatedRoute.snapshot.data['tasks']
+    this.filteredTasks = [...this.listOfTasks];
+
+    this.getUserTasks();
   }
 }

@@ -1,6 +1,6 @@
-import { Component, OnInit, Input , OnChanges, SimpleChanges} from '@angular/core';
+import { Component, OnInit, Input , OnChanges, SimpleChanges, AfterViewInit} from '@angular/core';
 import { SupabaseService } from 'src/app/services/supabase.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Profile } from 'src/app/profile.interface';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
@@ -11,13 +11,13 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, AfterViewInit {
   isLoggedIn: Observable<boolean>;
   isAdmin: Observable<boolean>;
   userProfile!: Profile
 
   caretDown = faCaretDown
-  constructor(private auth: SupabaseService, private route: Router) {
+  constructor(private auth: SupabaseService, private activatedRoute: ActivatedRoute, private route: Router) {
     this.isLoggedIn = auth.isLoggedIn()
     this.isAdmin = auth.isAdminSubject
    }
@@ -36,9 +36,14 @@ export class NavbarComponent implements OnInit {
 }
 
 
+async ngAfterViewInit() {
+  
+}
 
-  async ngOnInit() {
-   const userProfile = await this.auth.getUserProfile()
-   this.userProfile = userProfile
+  ngOnInit() {
+  console.log(this.auth.Profile)
+
+  this.userProfile = this.auth.Profile
+
   }
 }

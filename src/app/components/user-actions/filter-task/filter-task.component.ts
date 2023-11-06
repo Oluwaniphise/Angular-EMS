@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import {  faFilter,faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -10,9 +10,16 @@ import {  faFilter,faCaretDown } from '@fortawesome/free-solid-svg-icons';
 export class FilterTaskComponent implements OnInit {
   faFilter = faFilter
   faCaretDown = faCaretDown
+
+  selectedCategory: string = ''
   constructor() { }
 
   ngOnInit(): void {
+  }
+  @Output() filterChanged = new EventEmitter<string>();
+
+  applyFilter(){
+    this.filterChanged.emit(this.selectedCategory)
   }
 
 }

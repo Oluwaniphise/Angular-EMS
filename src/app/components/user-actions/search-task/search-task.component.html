@@ -1,13 +1,15 @@
-<div class="flex flex-row h-full basis-1/2  items-center text-center gap-x-3">
-    <div>
-      <fa-icon
-        [icon]="faSearch"
-        size="lg"
-      ></fa-icon>
-    </div>
-    
+<div class="flex flex-row h-full basis-1/2 items-center text-center gap-x-3">
+  <div>
+    <fa-icon [icon]="faSearch" size="lg"></fa-icon>
+  </div>
 
-    <div>
-      <input #searchTerm (input)="searchTask(searchTerm.value)" type="text" placeholder="Search..." class="border-b w-[300px] border-gray-300 focus:border-b-2 focus:border-[#008793] outline-none" />
+  <div>
+    <input
+      #searchTerm
+      (input)="searchTask(searchTerm.value)"
+      type="text"
+      placeholder="Search..."
+      class="max-w-[300px] md:w-[300px] border-gray-300 focus:border-b-2   focus:border-[#008793] outline-none"
+    />
   </div>
 </div>

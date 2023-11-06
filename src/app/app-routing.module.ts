@@ -49,6 +49,7 @@ export const routes: Routes = [
         resolve: {
           tasks: AllTasksResolver,
           
+          
 
         }
 

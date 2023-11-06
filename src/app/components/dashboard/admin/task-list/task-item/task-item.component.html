@@ -18,13 +18,18 @@
 <ng-container>
   <div class="px-4 py-5 mt-5 border rounded-md shadow-lg  bg-white">
     <h3 class="font-bold">{{ task.task }}</h3>
-    <p class="text-sm font-thin">{{ task.description }}</p>
+    <p class="text-sm font-thin ">{{ task.description }}</p>
     <div class="mt-[2rem] flex flex-row justify-between items-baseline">
-      <div>
-        <div class="bg-[#008793] h-10 w-10 rounded-full">
+      <div class="relative">
+        <div (mouseleave)="showDetails = false" (mouseenter)="showDetails = true" class="bg-[#008793] h-10 w-10 rounded-full">
           <p class="flex items-center justify-center h-full text-white">
             {{task.employee.charAt(0).toUpperCase()}}
           </p>
+        </div>
+
+        <div class="absolute w-[200px]" *ngIf="showDetails">
+          <small class="text-black">Assigned to: {{task.employee}} </small>
+
         </div>
 
       </div>
