@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SupabaseService } from './services/supabase.service';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import { Profile } from './profile.interface';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,15 @@ import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Rout
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private auth: SupabaseService, private router: Router){}
+  userProfile!: Profile;
+  constructor(private auth: SupabaseService, private router: Router){
+    if (this.auth.Profile) {
+      this.userProfile = this.auth.Profile
+    }
+  }
   loading = false
 
+  
   ngOnInit() {
     this.router.events.subscribe(ev => {
       // console.log(ev)

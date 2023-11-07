@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Profile } from 'src/app/profile.interface';
 import { SupabaseService } from 'src/app/services/supabase.service';
@@ -9,11 +9,12 @@ import { SupabaseService } from 'src/app/services/supabase.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
-  constructor(private auth: SupabaseService, private route: ActivatedRoute) { }
   userProfile!: Profile
+  constructor(private auth: SupabaseService, private route: ActivatedRoute) { 
+    
+  }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userProfile = this.route.snapshot.data['profile']
   }
 

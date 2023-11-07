@@ -1,6 +1,6 @@
-import { Component, OnInit, Input , OnChanges, SimpleChanges, AfterViewInit} from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, OnChanges, SimpleChanges, Input} from '@angular/core';
 import { SupabaseService } from 'src/app/services/supabase.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Profile } from 'src/app/profile.interface';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
@@ -9,41 +9,39 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent implements OnInit, AfterViewInit {
+export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   isLoggedIn: Observable<boolean>;
   isAdmin: Observable<boolean>;
-  userProfile!: Profile
+  @Input() userProfile?: Profile
 
   caretDown = faCaretDown
-  constructor(private auth: SupabaseService, private activatedRoute: ActivatedRoute, private route: Router) {
+  constructor(private auth: SupabaseService, private route: Router) {
     this.isLoggedIn = auth.isLoggedIn()
     this.isAdmin = auth.isAdminSubject
    }
 
-  signOut(){
-    this.auth.signOut().then(_ => {
-      this.auth.removeSessionFromLocalStorage()
-      localStorage.removeItem('UserProfile')
-      this.auth.isLoginSubject.next(false)
-      this.auth.isAdminSubject.next(false)
-      this.route.navigate(['/login'])
-    }).catch(err => {
-    console.log(err)
-    
-  })
-}
+  async logout() { 
+    this.userProfile = undefined;
+    await this.auth.signOut()
+    this.route.navigate(['/login'])
+  }
 
-
-async ngAfterViewInit() {
-  
-}
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes)
+    console.log('changes')
+  }
 
   ngOnInit() {
-  console.log(this.auth.Profile)
+    console.log('init')
+  }
 
-  this.userProfile = this.auth.Profile
+  ngOnDestroy(): void {
+      console.log('destroyed')
+  }
 
+  ngAfterViewInit(): void {
+    console.log('view init')
   }
 }

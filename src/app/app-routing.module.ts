@@ -16,6 +16,7 @@ import { UserProfileResolver } from './resolver/user-profile.resolver';
 import { AllTasksResolver } from './resolver/all-tasks.resolver';
 import { getEmployees } from './resolver/get-employees.resolver';
 import { EmployeeDetailComponent } from './components/user-actions/employee-list/employee-detail/employee-detail.component';
+import { SessionGuard } from './guard/session.guard';
 
 export const routes: Routes = [
   {
@@ -62,10 +63,13 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [SessionGuard]
   },
   {
     path: 'register',
     component: RegisterComponent,
+    canActivate: [SessionGuard]
+
   },
   {
     path: '',

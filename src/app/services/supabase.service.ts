@@ -12,15 +12,7 @@ import { Employee } from '../employee.interface';
 export class SupabaseService {
   private supabase: SupabaseClient;
   isAdminSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  currentUserProfile: BehaviorSubject<Profile> = new BehaviorSubject({
-    id: "",
-    username: "",
-    full_name: '',
-    avatar_url: '',
-    role: "",
-    email: "",
-    todo: ''
-});
+  currentUserProfile!: BehaviorSubject<Profile>;
 
   isLoginSubject = new BehaviorSubject<boolean>(this.hasToken());
   
@@ -34,8 +26,9 @@ export class SupabaseService {
 
     const user = localStorage.getItem('UserProfile')
     if(user){
-      this.currentUserProfile.next(JSON.parse(user))
-
+      this.currentUserProfile = new BehaviorSubject<Profile>(JSON.parse(user))
+    } else {
+      this.currentUserProfile = new BehaviorSubject<Profile>(JSON.parse('null') as unknown as Profile)
     }
 
     this.isAdminSubject.next(this.isAdmin());
@@ -78,10 +71,19 @@ export class SupabaseService {
     return this.supabase.auth.signInWithPassword({ email, password });
   }
 
-  signOut() {
-    return this.supabase.auth.signOut();
-  }
+  async signOut(){
+    const signout = await this.supabase.auth.signOut();
 
+    if (signout.error) {
+      return signout.error;
+    } else {
+      this.removeSessionFromLocalStorage();
+      this.isLoginSubject.next(false);
+      this.isAdminSubject.next(false);
+      this.currentUserProfile = new BehaviorSubject<Profile>({} as Profile);
+      return signout;
+    }
+}
   saveSessiontoLocalStorage(token: any) {
     localStorage.setItem('access_token', JSON.stringify(token));
   }
