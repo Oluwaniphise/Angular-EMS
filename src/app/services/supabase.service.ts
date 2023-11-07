@@ -125,8 +125,7 @@ export class SupabaseService {
     const { data, error } = await this.supabase
 
       .from('profiles')
-      .select('*')
-      .eq('role', 'user');
+      .select('*');
 
     if (error) {
       return error as unknown as Employee[];
@@ -137,5 +136,9 @@ export class SupabaseService {
 
   get supabaseClient() {
     return this.supabase;
+  }
+
+  get Employees(){
+    return this.getEmployees()
   }
 }

@@ -11,9 +11,9 @@ import { Task } from '../task.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class TasksResolverResolver implements Resolve<Task []> {
+export class UserTasks implements Resolve<Task []> {
   constructor(private taskService:TasksService){}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Task[]> | Observable<Task[]> {
-    return this.taskService.getUserTasks()
+    return this.taskService.getUserTasksByProfile()
   }
 }

@@ -22,7 +22,6 @@ export class FormGuardGuard implements CanDeactivate<SaveData> {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log(component.isDataSaved());
     if (!component.isDataSaved()) {
       const dialogRef = this.dialog.open(ConfirmDialogComponent);
       return dialogRef.afterClosed();

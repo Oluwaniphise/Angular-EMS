@@ -20,7 +20,6 @@ export class AddTaskComponent implements OnInit, SaveData {
   }
 
   addTask(taskData: Task) {
-    console.log(taskData)
     this.taskService
       .addTask(taskData)
       .then((res) => {

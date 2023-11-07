@@ -22,18 +22,25 @@ export class TasksService {
 
   constructor(private supabase: SupabaseService) {}
 
-  async getUserTasks(): Promise<Task[]> {
-    const userProfile = localStorage.getItem('UserProfile');
-    let user_profile: any = userProfile
-    if(user_profile) {
-      JSON.parse(user_profile)
-    }
-    console.log(user_profile)
-    
-    
+  userProfile: Profile = this.supabase.Profile
+
+  async getUserTasksByProfile(): Promise<Task[]> {
+ 
     let { data, error } = await this.supabase.supabaseClient
       .from('todos')
-      .select('*').eq('employee', user_profile?.username);
+      .select('*').eq('employee', this.userProfile.username);
+
+    if (error) {
+      return error as unknown as Task[];
+    }
+
+    return data as Task[];
+  }
+  async getUserTasksByEmployee(employee: any): Promise<Task[]> {
+ 
+    let { data, error } = await this.supabase.supabaseClient
+      .from('todos')
+      .select('*').eq('employee', employee);
 
     if (error) {
       return error as unknown as Task[];

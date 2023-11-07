@@ -1,0 +1,30 @@
+<h1>Tasks for: {{employee}}</h1>
+<div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+
+<div *ngFor="let task of tasksList">
+
+    <div  class=" px-4 py-5 my-5 border rounded-xl bg-white shadow-lg">
+        <h3 class="font-bold">{{task.task}}</h3>
+        <p class="text-sm  font-thin">{{task.description}}</p>
+        <div class="flex flex-row justify-between items-baseline">
+            <div>
+                <small><span class="text-bold">{{task.deadline | dayDifference}}</span> days left</small>
+            </div>
+
+            <div>
+                <button class="" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button>hey</button>
+                  
+                  </mat-menu>
+                  
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</div>
+

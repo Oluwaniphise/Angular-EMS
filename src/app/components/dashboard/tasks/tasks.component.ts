@@ -17,7 +17,7 @@ export class TasksComponent implements OnInit {
   
   async getTasks() {
     this.loading = true;
-    await this.tasks.getTasks().then((tasks) => {
+    await this.tasks.getUserTasksByProfile().then((tasks) => {
       this.tasksList = tasks;
       this.loading = false;
     });

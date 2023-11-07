@@ -35,6 +35,9 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { UserActionsComponent } from './components/user-actions/user-actions.component';
 import { SearchTaskComponent } from './components/user-actions/search-task/search-task.component';
 import { FilterTaskComponent } from './components/user-actions/filter-task/filter-task.component';
+import { EmployeeListComponent } from './components/user-actions/employee-list/employee-list.component';
+import { EmployeeDetailComponent } from './components/user-actions/employee-list/employee-detail/employee-detail.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 export function tokenGetter() {
   return localStorage.getItem("access_token");
 }
@@ -64,6 +67,8 @@ export function tokenGetter() {
     UserActionsComponent,
     SearchTaskComponent,
     FilterTaskComponent,
+    EmployeeListComponent,
+    EmployeeDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +77,7 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     MatDialogModule,
     FormsModule,
+    MatTooltipModule,
     DragDropModule,
     HttpClientModule,
     FontAwesomeModule,
