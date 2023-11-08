@@ -33,6 +33,9 @@ export const routes: Routes = [
     component: AdminComponent,
     canActivate: [AuthGuard],
     canActivateChild: [PermissionGuard],
+    resolve: {
+      profile: UserProfileResolver,
+    },
     children: [
       {
         path: 'add-task',

@@ -11,7 +11,7 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
+export class NavbarComponent implements OnInit{
   isLoggedIn: Observable<boolean>;
   isAdmin: Observable<boolean>;
   @Input() userProfile?: Profile
@@ -28,20 +28,7 @@ export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
     this.route.navigate(['/login'])
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
-    console.log('changes')
-  }
-
-  ngOnInit() {
-    console.log('init')
-  }
-
-  ngOnDestroy(): void {
-      console.log('destroyed')
-  }
-
-  ngAfterViewInit(): void {
-    console.log('view init')
-  }
+ ngOnInit(): void {
+     
+ }
 }

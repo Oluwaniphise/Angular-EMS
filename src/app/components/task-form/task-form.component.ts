@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Employee } from 'src/app/employee.interface';
 import { SaveData } from 'src/app/save-data-interface';
 import { SupabaseService } from 'src/app/services/supabase.service';
@@ -13,6 +13,11 @@ import { Task } from 'src/app/task.interface';
 })
 export class TaskFormComponent implements OnInit {
   taskForm!: FormGroup;
+  taskControl!: FormControl;
+  descriptionControl!: FormControl;
+  deadlineControl!: FormControl;
+  employeeControl!: FormControl;
+
   @Input() taskData!: Task;
   @Input() title: string = '';
   @Output() onAddTask: EventEmitter<Task> = new EventEmitter();
@@ -31,18 +36,18 @@ export class TaskFormComponent implements OnInit {
   initForm(taskData?: Task) {
     if (taskData) {
       this.taskForm = this.fb.group({
-        task: this.fb.control(taskData.task, [Validators.required]),
-        employee: this.fb.control(taskData.employee, [Validators.required]),
-        description: this.fb.control(taskData.description, [Validators.required]),
-        deadline: this.fb.control(taskData.deadline, [Validators.required]),
-        id: this.fb.control(taskData.id, []),
+        task: [taskData.task, [Validators.required]],
+        employee: [taskData.employee, [Validators.required]],
+        description: [taskData.description, [Validators.required]],
+        deadline: [taskData.deadline, [Validators.required]],
+        id: [taskData.id, []],
       });
     } else {
       this.taskForm = this.fb.group({
-        task: this.fb.control('', [Validators.required]),
-        employee: this.fb.control('', [Validators.required]),
-        description: this.fb.control('', [Validators.required]),
-        deadline: this.fb.control('', [Validators.required]),
+        task: ['', [Validators.required]],
+        employee:['', [Validators.required]],
+        description: ['', [Validators.required]],
+        deadline: ['', [Validators.required]],
 
 
       });
@@ -56,8 +61,11 @@ export class TaskFormComponent implements OnInit {
     }
 
     this.getEmployees();
+    this.taskControl = this.taskForm.get('task') as FormControl;
+    this.descriptionControl = this.taskForm.get('description') as FormControl;
+    this.deadlineControl = this.taskForm.get('deadline') as FormControl;
+    this.employeeControl = this.taskForm.get('employee') as FormControl;
 
-  console.log(this.date.toISOString())
 
   }
 

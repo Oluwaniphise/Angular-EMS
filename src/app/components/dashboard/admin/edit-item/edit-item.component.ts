@@ -27,14 +27,15 @@ export class EditItemComponent implements OnInit {
 
 
   editTask(task: Task) {
-    this.taskService
-      .updateTask(task)
-      .then((_) => {
-        this.dialogRef.close(task)
-      })
-      .catch((err) => console.log(err)).finally(() => {
-        this.taskFormComponent.taskForm.reset()
-      });
+    console.log(task)
+    // this.taskService
+    //   .updateTask(task)
+    //   .then((_) => {
+    //     this.dialogRef.close(task)
+    //   })
+    //   .catch((err) => console.log(err)).finally(() => {
+    //     this.taskFormComponent.taskForm.reset()
+    //   });
   }
   ngOnInit() {
   }

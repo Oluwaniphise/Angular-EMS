@@ -28,7 +28,7 @@ export class TasksService {
  
     let { data, error } = await this.supabase.supabaseClient
       .from('todos')
-      .select('*').eq('employee', this.userProfile.username);
+      .select('*').eq('employee', this.userProfile?.username);
 
     if (error) {
       return error as unknown as Task[];

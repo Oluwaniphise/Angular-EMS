@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TasksService } from 'src/app/services/tasks.service';
 import { Task } from 'src/app/task.interface';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,8 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TasksComponent implements OnInit {
   loading = false;
-  tasksList!: Task[];
-  constructor(private tasks: TasksService, private router: Router, private activatedRoute: ActivatedRoute) {
+  @Input() tasksList!: Task[];
+  constructor(private tasks: TasksService) {
 
   }
   
@@ -61,6 +61,5 @@ export class TasksComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tasksList = this.activatedRoute.snapshot.data['userTasks']
   }
 }

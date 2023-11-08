@@ -12,8 +12,9 @@ import { Task } from '../task.interface';
   providedIn: 'root'
 })
 export class UserTasks implements Resolve<Task []> {
-  constructor(private taskService:TasksService){}
+  constructor(private taskService:TasksService, ){}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Task[]> | Observable<Task[]> {
+
     return this.taskService.getUserTasksByProfile()
   }
 }

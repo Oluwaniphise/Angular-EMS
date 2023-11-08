@@ -10,6 +10,8 @@ import { Profile } from './profile.interface';
 })
 export class AppComponent {
   userProfile!: Profile;
+  title = 'EMS';
+
   constructor(private auth: SupabaseService, private router: Router){
     if (this.auth.Profile) {
       this.userProfile = this.auth.Profile
@@ -20,7 +22,6 @@ export class AppComponent {
   
   ngOnInit() {
     this.router.events.subscribe(ev => {
-      // console.log(ev)
       if(ev instanceof NavigationStart){
         this.loading = true
       }
@@ -33,5 +34,4 @@ export class AppComponent {
 
     }
     
-  title = 'EMS';
 }

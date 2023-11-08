@@ -14,7 +14,7 @@
           class="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
           placeholder="example@example.com"
         />
-        <div class="text-red-500" *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+        <div class="text-red-500" *ngIf="emailControl?.invalid && (emailControl?.dirty || emailControl?.touched)">
             Please provide a valid email address.
           </div>
         <!--  -->
@@ -30,14 +30,14 @@
           class="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
           placeholder="********"
         />
-        <div class="text-red-500" *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+        <div class="text-red-500" *ngIf="passwordControl?.invalid && (passwordControl?.dirty || passwordControl?.touched)">
             Password must have greater than 7 characters
           </div>
       
       </div>
       <button
         type="submit"
-       [disabled]="loginForm.invalid || loading" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+       [disabled]="loginForm.invalid || loading" class="w-full bg-[#008793] text-white p-2 rounded-md focus:outline-none"
       >
         {{loading ? 'logging in...': 'Login'}}
       </button>

@@ -31,8 +31,7 @@ export class TaskListComponent implements OnInit {
     });
   }
   async getUserTasks() {
-    await this.tasks.getUserTasksByProfile().then((tasks) => {
-      console.log(tasks);
+    await this.tasks.getUserTasksByProfile().then(() => {
     }).catch(err => console.log(err));
   }
 

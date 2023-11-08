@@ -15,8 +15,8 @@
           <div
             class="text-red-500"
             *ngIf="
-              taskForm.get('task')?.invalid &&
-              (taskForm.get('task')?.dirty || taskForm.get('task')?.touched)
+            taskControl?.invalid &&
+            (taskControl?.dirty || taskControl?.touched)
             "
           >
             Please provide a task title
@@ -38,8 +38,8 @@
           <div
             class="text-red-500"
             *ngIf="
-              taskForm.get('description')?.invalid &&
-              (taskForm.get('description')?.dirty || taskForm.get('description')?.touched)
+            descriptionControl?.invalid &&
+            (descriptionControl?.dirty || descriptionControl?.touched)
             "
           >
             Please provide a description
@@ -59,9 +59,9 @@
           <div
             class="text-red-500"
             *ngIf="
-              taskForm.get('deadline')?.invalid &&
-              (taskForm.get('deadline')?.dirty ||
-                taskForm.get('deadline')?.touched)
+            deadlineControl?.invalid &&
+              (deadlineControl?.dirty ||
+              deadlineControl?.touched)
             "
           >
             Select deadline
@@ -89,9 +89,9 @@
           <div
             class="text-red-500"
             *ngIf="
-              taskForm.get('employee')?.invalid &&
-              (taskForm.get('employee')?.dirty ||
-                taskForm.get('employee')?.touched)
+            employeeControl?.invalid &&
+            (employeeControl?.dirty ||
+            employeeControl?.touched)
             "
           >
             Select employee

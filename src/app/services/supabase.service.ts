@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient, User } from '@supabase/supabase-js';
 import { environment } from 'src/environments/environment';
 import jwtDecode from 'jwt-decode';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable,  } from 'rxjs';
 import { Profile } from '../profile.interface';
 import { Employee } from '../employee.interface';
 
@@ -13,7 +13,6 @@ export class SupabaseService {
   private supabase: SupabaseClient;
   isAdminSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   currentUserProfile!: BehaviorSubject<Profile>;
-
   isLoginSubject = new BehaviorSubject<boolean>(this.hasToken());
   
 
@@ -71,6 +70,11 @@ export class SupabaseService {
     return this.supabase.auth.signInWithPassword({ email, password });
   }
 
+  removeSessionFromLocalStorage(): any {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('UserProfile');
+  }
+
   async signOut(){
     const signout = await this.supabase.auth.signOut();
 
@@ -96,9 +100,7 @@ export class SupabaseService {
     }
   }
 
-  removeSessionFromLocalStorage(): any {
-    localStorage.removeItem('access_token');
-  }
+ 
 
   async getUserProfile(): Promise<Profile> {
     const tokenString = localStorage.getItem('access_token');

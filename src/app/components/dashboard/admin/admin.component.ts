@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Profile } from 'src/app/profile.interface';
 
 @Component({
   selector: 'app-admin',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-
-  constructor() { }
+  userProfile!: Profile
+  constructor(private route: ActivatedRoute) { 
+    
+  }
 
   ngOnInit(): void {
+    this.userProfile = this.route.snapshot.data['profile']
   }
 
 }

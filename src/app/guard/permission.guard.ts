@@ -25,7 +25,6 @@ export class PermissionGuard implements CanActivateChild {
     | boolean
     | UrlTree {
     return this.auth.getUserProfile().then((res) => {
-      console.log(res);
       if (res?.role === 'admin') return true;
       alert('You are not an admin');
       return this.router.parseUrl('/dashboard');

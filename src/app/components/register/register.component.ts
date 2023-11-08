@@ -16,6 +16,9 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 export class RegisterComponent implements OnInit {
   loading = false;
   registerForm!: FormGroup;
+  emailControl!: FormControl;
+  passwordControl!: FormControl;
+
   constructor(private fb: FormBuilder, private auth: SupabaseService, private router: Router) {}
 
   ngOnInit(): void {
@@ -26,14 +29,19 @@ export class RegisterComponent implements OnInit {
         Validators.required,
       ]),
     });
+
+    this.emailControl = this.registerForm.get('email') as FormControl;
+    this.passwordControl = this.registerForm.get('password') as FormControl;
+
   }
+
+
 
   onSubmit() {
     this.loading = true;
     this.auth
       .signUp(this.registerForm.value.email, this.registerForm.value.password)
       .then((res) => {
-        console.log(res.data.user);
         this.router.navigate(['/login'])
       })
       .catch((err) => {
