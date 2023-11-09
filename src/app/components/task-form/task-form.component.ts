@@ -1,9 +1,7 @@
 import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Employee } from 'src/app/employee.interface';
-import { SaveData } from 'src/app/save-data-interface';
 import { SupabaseService } from 'src/app/services/supabase.service';
-import { TasksService } from 'src/app/services/tasks.service';
 import { Task } from 'src/app/task.interface';
 
 @Component({
@@ -22,6 +20,8 @@ export class TaskFormComponent implements OnInit {
   @Input() title: string = '';
   @Output() onAddTask: EventEmitter<Task> = new EventEmitter();
   @Output() onEditTask: EventEmitter<Task> = new EventEmitter();
+
+
   employees!: Employee[];
   date = new Date()
 
@@ -53,6 +53,7 @@ export class TaskFormComponent implements OnInit {
       });
     }
   }
+  
   ngOnInit(): void {
     if (this.taskData) {
       this.initForm(this.taskData);
@@ -61,11 +62,11 @@ export class TaskFormComponent implements OnInit {
     }
 
     this.getEmployees();
+
     this.taskControl = this.taskForm.get('task') as FormControl;
     this.descriptionControl = this.taskForm.get('description') as FormControl;
     this.deadlineControl = this.taskForm.get('deadline') as FormControl;
     this.employeeControl = this.taskForm.get('employee') as FormControl;
-
 
   }
 
