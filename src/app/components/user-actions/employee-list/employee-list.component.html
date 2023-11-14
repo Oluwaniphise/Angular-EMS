@@ -1,7 +1,7 @@
 <div class="flex flex-row ">
 
     <div *ngFor="let employee of employees" class="bg-[#008793] -ml-[10px] h-8 w-8 rounded-full">
-        <a routerLink="/admin/employee/{{employee.username}}"  class="  flex items-center justify-center h-full text-white">
+        <a routerLink="/admin/employee/{{employee.id}}"  class="  flex items-center justify-center h-full text-white">
 
          {{employee.username[0]}}
         </a>

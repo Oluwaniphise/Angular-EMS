@@ -82,7 +82,7 @@
             id="employee"
           >
           <option selected disabled  value="Select an employee">Select an employee</option>
-            <option *ngFor="let employee of employees"  value="{{employee.username}}">
+            <option *ngFor="let employee of employees"  [value]="employee.id"> 
               {{employee.username}}
             </option>
           </select>

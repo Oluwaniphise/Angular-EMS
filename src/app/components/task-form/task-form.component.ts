@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Employee } from 'src/app/employee.interface';
 import { SupabaseService } from 'src/app/services/supabase.service';
-import { Task } from 'src/app/task.interface';
+import { AddTask, Task } from 'src/app/task.interface';
 
 @Component({
   selector: 'app-task-form',
@@ -18,8 +18,8 @@ export class TaskFormComponent implements OnInit {
 
   @Input() taskData!: Task;
   @Input() title: string = '';
-  @Output() onAddTask: EventEmitter<Task> = new EventEmitter();
-  @Output() onEditTask: EventEmitter<Task> = new EventEmitter();
+  @Output() onAddTask: EventEmitter<AddTask> = new EventEmitter();
+  @Output() onEditTask: EventEmitter<AddTask> = new EventEmitter();
 
 
   employees!: Employee[];
@@ -31,13 +31,14 @@ export class TaskFormComponent implements OnInit {
     await this.auth.getEmployees().then((res) => {
       this.employees = res;
     });
+
   }
 
   initForm(taskData?: Task) {
     if (taskData) {
       this.taskForm = this.fb.group({
         task: [taskData.task, [Validators.required]],
-        employee: [taskData.employee, [Validators.required]],
+        employee: [taskData.profiles.id, [Validators.required]],
         description: [taskData.description, [Validators.required]],
         deadline: [taskData.deadline, [Validators.required]],
         id: [taskData.id, []],

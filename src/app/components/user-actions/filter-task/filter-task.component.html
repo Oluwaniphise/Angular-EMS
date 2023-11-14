@@ -6,8 +6,8 @@
           <fa-icon size="lg" [icon]="faFilter"></fa-icon>
     </div>
       <div class="">
+        <label for="category">Quick Filters:</label>
         <select [(ngModel)]="selectedCategory" (change)="applyFilter()" class="outline-none  border-none">
-          <option selected disabled value="Quick Filters">Quick Filters</option>
           <option value="">All</option>
           <option value="pending">Pending</option>
           <option value="in_progress">In Progress</option>

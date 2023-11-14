@@ -30,7 +30,7 @@
             class="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
             placeholder="********"
           />
-          <div class="text-red-500" *ngIf="passwordControl?.invalid && (passwordControl?.dirty || passwordControl?.touched)">
+          <div class="text-red-500" *ngIf="!passwordControl?.valid && (passwordControl?.dirty || passwordControl?.touched)">
             Password must have greater than 7 characters
              
             </div>

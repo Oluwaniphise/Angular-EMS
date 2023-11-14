@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Task } from 'src/app/task.interface';
+import { AddTask, Task } from 'src/app/task.interface';
 import { TasksService } from 'src/app/services/tasks.service';
 import { Employee } from 'src/app/employee.interface';
 import { Router } from '@angular/router';
@@ -26,7 +26,7 @@ export class EditItemComponent implements OnInit {
   loading = false;
 
 
-  editTask(task: Task) {
+  editTask(task: AddTask) {
     console.log(task)
     // this.taskService
     //   .updateTask(task)

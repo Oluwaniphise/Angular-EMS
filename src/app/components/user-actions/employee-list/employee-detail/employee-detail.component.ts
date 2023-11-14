@@ -9,13 +9,13 @@ import { Task } from 'src/app/task.interface';
 })
 export class EmployeeDetailComponent implements OnInit {
   tasksList!: Task[]
-  employee!: string
+  id!: string
   constructor(private tasks: TasksService, private route: ActivatedRoute) { }
 
 
   async ngOnInit() {
-    this.employee = this.route.snapshot.params.id
-    const tasks = await this.tasks.getUserTasksByEmployee(this.employee)
+    this.id = this.route.snapshot.params.id
+    const tasks = await this.tasks.getUserTasksByEmployeeID(this.id)
     this.tasksList = tasks
   }
 

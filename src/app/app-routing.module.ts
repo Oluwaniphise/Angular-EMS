@@ -24,8 +24,8 @@ export const routes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuard],
     resolve: {
-      userTasks: UserTasks,
       profile: UserProfileResolver,
+      userTasks: UserTasks,
     },
   },
   {

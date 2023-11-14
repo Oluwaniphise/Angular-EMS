@@ -33,9 +33,9 @@ export class SupabaseService {
     this.isAdminSubject.next(this.isAdmin());
   }
 
-  get currentRole() {
-    return this.isAdminSubject.value;
-  }
+  // get currentRole() {
+  //   return this.isAdminSubject.value;
+  // }
 
   get Profile(){
     return this.currentUserProfile.value as Profile
@@ -73,6 +73,7 @@ export class SupabaseService {
   removeSessionFromLocalStorage(): any {
     localStorage.removeItem('access_token');
     localStorage.removeItem('UserProfile');
+    localStorage.removeItem('supabaseUser');
   }
 
   async signOut(){
@@ -84,7 +85,7 @@ export class SupabaseService {
       this.removeSessionFromLocalStorage();
       this.isLoginSubject.next(false);
       this.isAdminSubject.next(false);
-      this.currentUserProfile = new BehaviorSubject<Profile>({} as Profile);
+      this.currentUserProfile.next(null as unknown as Profile)
       return signout;
     }
 }
@@ -101,7 +102,7 @@ export class SupabaseService {
   }
 
  
-
+// get user profile
   async getUserProfile(): Promise<Profile> {
     const tokenString = localStorage.getItem('access_token');
     let user: any;
@@ -125,6 +126,7 @@ export class SupabaseService {
     return data as unknown as Profile;
   }
 
+  // get all employees
   async getEmployees(): Promise<Employee[]> {
     const { data, error } = await this.supabase
 

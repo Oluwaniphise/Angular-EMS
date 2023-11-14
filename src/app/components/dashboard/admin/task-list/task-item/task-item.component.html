@@ -1,29 +1,13 @@
-<!-- <div class="flex flex-row justify-between  gap-8  max-w-md p-4 mt-5 border border-white">
-  <div class="flex flex-col">
-    <p>{{ task.task }}</p>
-    <small>{{ task.created_at | date : "medium" }}</small>
-    <small>Assigned to {{ task.employee }}</small>
-    <small>Status: {{ task.status }}</small>
-  </div>
 
-  <div class="flex flex-row gap-4">
- 
-        <fa-icon (click)="editTask(task)" class="cursor-pointer hover:text-yellow-500" [icon]="faEdit">
-      </fa-icon>
-    
-    <fa-icon (click)="deleteTask(task)" class="cursor-pointer hover:text-red-500" [icon]="faDelete"></fa-icon>
-  </div>
-</div> -->
-
-<ng-container>
+<ng-container *ngIf="task">
   <div class="px-4 py-5 mt-5 border rounded-md shadow-lg  bg-white">
     <h3 class="font-bold">{{ task.task }}</h3>
     <p class="text-sm font-thin ">{{ task.description }}</p>
     <div class="mt-[2rem] flex flex-row justify-between items-baseline">
       <div class="relative">
-        <div [matTooltip]="task.employee" class="bg-[#008793] h-10 w-10 rounded-full">
-          <a routerLink="/admin/employee/{{task.employee}}" class="flex items-center justify-center h-full text-white">
-            {{task.employee.charAt(0).toUpperCase()}}
+        <div [matTooltip]="task.profiles.username" class="bg-[#008793] h-10 w-10 rounded-full">
+          <a routerLink="/admin/employee/{{task.user_id}}" class="flex items-center justify-center h-full text-white">
+            {{task.profiles.username.charAt(0).toUpperCase()}}
           </a>
         </div>
 

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TasksService } from 'src/app/services/tasks.service';
 import { SaveData } from 'src/app/save-data-interface';
-import { Task } from 'src/app/task.interface';
+import { AddTask } from 'src/app/task.interface';
 import { TaskFormComponent } from 'src/app/components/task-form/task-form.component';
 @Component({
   selector: 'app-add-task',
@@ -19,7 +19,7 @@ export class AddTaskComponent implements OnInit, SaveData {
     
   }
 
-  addTask(taskData: Task) {
+  addTask(taskData: AddTask) {
     this.taskService
       .addTask(taskData)
       .then((res) => {

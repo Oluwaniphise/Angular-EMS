@@ -1,11 +1,9 @@
 <app-navbar [userProfile]="userProfile"></app-navbar>
 <div class="my-5">
-
-<div class="flex flex-row">
+  <div class="flex flex-row">
     <div class="w-full md:w-9/12">
-    <app-tasks [tasksList]="taskList"></app-tasks>
 
+      <app-tasks *ngIf="taskList" [tasksList]="taskList"></app-tasks>
     </div>
-    
-</div>
+  </div>
 </div>

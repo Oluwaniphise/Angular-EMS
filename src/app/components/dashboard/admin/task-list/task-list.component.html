@@ -23,7 +23,7 @@
       (deleteTaskOutput)="deleteTask(task)"
       (editTaskOutput)="editTask(task)"
       [task]="task"
-      *ngIf="searchText === '' || task.task.toLowerCase().includes(searchText) "
+      *ngIf="searchText === '' || task.task.toLowerCase().includes(searchText)"
     >
   </app-task-item>
 
