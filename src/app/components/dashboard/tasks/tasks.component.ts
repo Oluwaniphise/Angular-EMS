@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TasksService } from 'src/app/services/tasks.service';
 import { Task } from 'src/app/task.interface';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tasks',
@@ -10,12 +9,14 @@ import { Router } from '@angular/router';
 })
 export class TasksComponent implements OnInit {
   loading = false;
-  tasksList!: Task[];
-  constructor(private tasks: TasksService, private router: Router) {}
+  @Input() tasksList: Task[] = [];
+  constructor(private tasks: TasksService) {
 
+  }
+  
   async getTasks() {
     this.loading = true;
-    await this.tasks.getTasks().then((tasks) => {
+    await this.tasks.getUserTasksByProfile().then((tasks) => {
       this.tasksList = tasks;
       this.loading = false;
     });
@@ -58,8 +59,33 @@ export class TasksComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-    this.getTasks();
+
+  // without else if
+  printYear(year: number){
+    if(year % 4 === 0 || (year % 100 !== 0 && year % 400 === 0)){
+      console.log('is a leap year')
+  } else{
+    console.log("is not leap year") 
+  }
+}
+
+// with else if
+ printYear2(year: number) {
+  if (year % 400 === 0) {
+    console.log('is a leap year');
+  } else if (year % 100 !== 0 && year % 4 === 0) {
+    console.log('is a leap year');
+  }  else {
+    console.log('is not a leap year');
     
+  }
+ }
+ 
+ ngOnInit() {
+
+    // this.printYear(2001)
+    // this.printYear2(2001)
+
+    console.log(this.tasksList)
   }
 }

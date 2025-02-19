@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
 import {DragDropModule} from '@angular/cdk/drag-drop'
-
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
@@ -27,7 +26,18 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 import { EditItemComponent } from './components/dashboard/admin/edit-item/edit-item.component';
 import { DeleteTaskComponent } from './components/dashboard/admin/delete-task/delete-task.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
-
+import { TaskFormComponent } from './components/task-form/task-form.component';
+import { DayDifferencePipe } from './utils/DayDifferencePipe';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { UserActionsComponent } from './components/user-actions/user-actions.component';
+import { SearchTaskComponent } from './components/user-actions/search-task/search-task.component';
+import { FilterTaskComponent } from './components/user-actions/filter-task/filter-task.component';
+import { EmployeeListComponent } from './components/user-actions/employee-list/employee-list.component';
+import { EmployeeDetailComponent } from './components/user-actions/employee-list/employee-detail/employee-detail.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 export function tokenGetter() {
   return localStorage.getItem("access_token");
 }
@@ -51,7 +61,14 @@ export function tokenGetter() {
     PagenotfoundComponent,
     EditItemComponent,
     DeleteTaskComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TaskFormComponent,
+    DayDifferencePipe,
+    UserActionsComponent,
+    SearchTaskComponent,
+    FilterTaskComponent,
+    EmployeeListComponent,
+    EmployeeDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,9 +76,15 @@ export function tokenGetter() {
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    FormsModule,
+    MatTooltipModule,
     DragDropModule,
     HttpClientModule,
     FontAwesomeModule,
+    MatButtonModule,
+    MatMenuModule, 
+    MatIconModule,
+    MatProgressBarModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

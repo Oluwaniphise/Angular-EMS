@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from 'src/app/task.interface';
-import { faCoffee, faBackward, faStepBackward } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-in-progress',
@@ -10,7 +11,8 @@ import { faCoffee, faBackward, faStepBackward } from '@fortawesome/free-solid-sv
 export class InProgressComponent implements OnInit {
 
   constructor() { }
-  faBack = faStepBackward
+  faArrowRight = faArrowRight
+  faArrowLeft = faArrowLeft
 
   @Input() task! : Task
   @Output() backToPending : EventEmitter<Task> = new EventEmitter()

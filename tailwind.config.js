@@ -2,17 +2,17 @@ module.exports = {
   content: [
     "./src/**/*.{html,ts}",
   ],
-  purge: [],
-  darkMode: false, // or 'media' or 'class'
   theme: {
     container: {
-      DEFAULT: '1rem',
-        sm: '2rem',
-        lg: '4rem',
-        xl: '5rem',
-        '2xl': '6rem',
+      DEFAULT: '2rem',
     },
-    extend: {},
+    extend: {
+      colors: {
+        teal: '#008793',
+        'whiteDescription':'#edede9'
+      
+      }
+    },
   },
   variants: {
     extend: {},

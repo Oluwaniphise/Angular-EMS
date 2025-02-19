@@ -9,6 +9,8 @@ import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 export class TaskItemComponent implements OnInit {
 
   constructor() { }
+
+  showDetails = false
   @Input() task!: Task
   @Output() editTaskOutput: EventEmitter<Task> = new EventEmitter()
   @Output() deleteTaskOutput: EventEmitter<Task> = new EventEmitter()

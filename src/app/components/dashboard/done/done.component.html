@@ -1,15 +1,27 @@
-<ng-container  *ngIf="task.status === 'done'">
+<ng-container>
 
-    <div  class="flex flex-row justify-between p-4 mt-5 border border-white">
-        <div class="">
-            <p>{{task.task}}</p>
-            <small>{{task.created_at | date: 'medium'}}</small>
+    <div  class=" px-4 py-5 mt-5 border rounded-xl shadow-xl   bg-white ">
+        <h3 class="font-bold">{{task.task}}</h3>
+        <p class="text-sm  font-thin">{{task.description}}</p>
+        <div class="flex flex-row justify-between items-baseline">
+            <div>
+            </div>
+
+            <div>
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button (click)="reverseToInProgress(task)" mat-menu-item>
+                      <fa-icon [icon]="faArrowLeft"></fa-icon>
+                      <span class="ml-2" >Back to In Progress</span>
+                    </button>
+                  
+                  </mat-menu>
+                  
+            </div>
         </div>
-     <div>
-        <fa-icon class="cursor-pointer" (click)="reverseToInProgress(task)" [icon]="faBack"></fa-icon>
-     </div>
 
     </div>
-
 
 </ng-container>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SupabaseService } from 'src/app/services/supabase.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,22 +10,30 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loading = false
   loginForm!: FormGroup
-  constructor(private fb: FormBuilder, private router: Router, private auth: SupabaseService) {}
+  emailControl!: FormControl;
+  passwordControl!: FormControl;
+  constructor(private fb: FormBuilder, private supabase: SupabaseService, private activatedRoute:ActivatedRoute, private router: Router, private auth: SupabaseService) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: this.fb.control('', [Validators.email, Validators.required]) ,
-      password: this.fb.control('', [Validators.minLength(7), Validators.required])
+      email: ['', [Validators.email, Validators.required]] ,
+      password: ['',  [Validators.minLength(7), Validators.required]]
     })
+
+    this.emailControl = this.loginForm.get('email') as FormControl;
+    this.passwordControl = this.loginForm.get('password') as FormControl;
   }
+
 
   onSubmit() {
     this.loading = true;
     this.auth.signIn(this.loginForm.value.email, this.loginForm.value.password)
-      .then((res) => {
-        console.log(res);
+      .then( async (res) => {
+        console.log(res.data)
         if(res?.data?.user?.role === 'authenticated'){
-          this.auth.saveSessiontoLocalStorage(res.data.session?.access_token)
+          localStorage.setItem('supabaseUser', JSON.stringify(res.data.user)) 
+          this.auth.saveSessiontoLocalStorage(res.data.session?.access_token);
+          this.auth.isLoginSubject.next(true);
           this.router.navigate(['/dashboard'])
         }
       })

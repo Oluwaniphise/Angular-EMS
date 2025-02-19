@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -8,67 +7,83 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthGuard } from './guard/auth.guard';
 import { AdminComponent } from './components/dashboard/admin/admin.component';
 import { AddTaskComponent } from './components/dashboard/admin/add-task/add-task.component';
-import { TasksComponent } from './components/dashboard/tasks/tasks.component';
 import { TaskListComponent } from './components/dashboard/admin/task-list/task-list.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
-import { EditItemComponent } from './components/dashboard/admin/edit-item/edit-item.component';
 import { PermissionGuard } from './guard/permission.guard';
 import { FormGuardGuard } from './guard/form-guard.guard';
+import { UserTasks } from './resolver/user-tasks-resolver.resolver';
+import { UserProfileResolver } from './resolver/user-profile.resolver';
+import { AllTasksResolver } from './resolver/all-tasks.resolver';
+import { getEmployees } from './resolver/get-employees.resolver';
+import { EmployeeDetailComponent } from './components/user-actions/employee-list/employee-detail/employee-detail.component';
+import { SessionGuard } from './guard/session.guard';
 
 export const routes: Routes = [
-
   {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuard],
+    resolve: {
+      profile: UserProfileResolver,
+      userTasks: UserTasks,
+    },
   },
   {
     path: 'admin',
     component: AdminComponent,
     canActivate: [AuthGuard],
     canActivateChild: [PermissionGuard],
-    children:[
-
-      
+    resolve: {
+      profile: UserProfileResolver,
+    },
+    children: [
       {
         path: 'add-task',
         component: AddTaskComponent,
-        canDeactivate:[FormGuardGuard]
+        canDeactivate: [FormGuardGuard],
       },
       {
         path: 'task-list',
         component: TaskListComponent,
+        resolve: {
+          tasks: AllTasksResolver,
+          profile: UserProfileResolver,
+          employees: getEmployees,
+        },
+      },
+      {
+        path: 'employee/:id',
+        component: EmployeeDetailComponent,
       },
       {
         path: '',
-        redirectTo: 'task-list', pathMatch: 'full'
-      }
-      
-     
-    ]
+        redirectTo: 'task-list',
+        pathMatch: 'full',
+      },
+    ],
   },
-  
+
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [SessionGuard]
   },
   {
     path: 'register',
     component: RegisterComponent,
+    canActivate: [SessionGuard]
+
   },
   {
     path: '',
     component: HomeComponent,
-    redirectTo: '', pathMatch: 'full'
-
+    redirectTo: '',
+    pathMatch: 'full',
   },
   {
     path: '**',
     component: PagenotfoundComponent,
-    
   },
- 
-  
 ];
 
 @NgModule({
